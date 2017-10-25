@@ -121,6 +121,49 @@ Pair<int, int> Map::graphToBoard(int v) {
 
 // END - Map ----------------------------------------------------------
 
+
+// START - Queue ----------------------------------------------------------
+
+template<typename T>
+class Queue{
+private:
+	vector<T> q;
+public:
+	Queue();
+	void push(T);
+	T front();
+	void pop();
+	bool empty();
+};
+
+template<typename T>
+Queue<T>::Queue(){
+	this->q.clear();
+}
+
+template<typename T>
+void Queue<T>::push(T item){
+	this->q.push_back(item);
+}
+
+template<typename T>
+T Queue<T>::front(){
+	return this->q[0];
+}
+
+template<typename T>
+void Queue<T>::pop(){
+	this->q.erase(this->q.begin());
+}
+
+template<typename T>
+bool Queue<T>::empty(){
+	return this->q.size() == 0;
+}
+
+// END - Queue ----------------------------------------------------------
+
+
 // START - Graph ----------------------------------------------------------
 
 class Graph{
@@ -181,13 +224,14 @@ void Graph::print(){
 void listTest();
 void pairTest();
 void mapTest();
+void queueTest();
 void graphTest();
 
 int main() {
 
     mapTest();
 	graphTest();
-
+	queueTest();
     return 0;
 }
 
@@ -230,6 +274,16 @@ void mapTest() {
             cout << pair.first << " " << pair.second << endl;
         }
     }
+}
+
+void queueTest(){
+	Queue<int> q;
+	for(int i=0; i < 10; i++) q.push(i);
+	while(!q.empty()){
+		int u = q.front(); q.pop();
+		cout << u << ' ';
+	}
+	cout << endl;
 }
 
 void graphTest(){
