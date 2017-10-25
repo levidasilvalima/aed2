@@ -4,35 +4,41 @@
 using namespace std;
 
 // START - List ------------------------------------------------------
+template<typename T>
 class List {
 private:
-    vector<int> elements;
+    vector<T> elements;
 public:   
     List(int size);
     List();
     int size();
-    void insert(int element);
-    int get(int position);
-    void update(int position, int newValue);
+    void insert(T element);
+    T get(int position);
+    void update(int position, T newValue);
     void remove(int position); 
     void print();
 };
 
-List::List(int size) {
+template<typename T>
+List<T>::List(int size) {
     this->elements.assign(size, -1);
 }
 
-List::List():List(0) {}
+template<typename T>
+List<T>::List():List(0) {}
 
-int List::size() {
+template<typename T>
+int List<T>::size() {
     return this->elements.size();
 }
 
-void List::insert(int element) {
+template<typename T>
+void List<T>::insert(T element) {
     this->elements.push_back(element);
 }
 
-int List::get(int position) {
+template<typename T>
+T List<T>::get(int position) {
     int elementsSize = this->elements.size();
 
     if ( position >= 0 && position < elementsSize) {
@@ -42,7 +48,8 @@ int List::get(int position) {
     return -1;
 }
 
-void List::update(int position, int newValue) {
+template<typename T>
+void List<T>::update(int position, T newValue) {
     int elementsSize = this->elements.size();
 
     if ( position >= 0 && position < elementsSize) {
@@ -50,7 +57,8 @@ void List::update(int position, int newValue) {
     }
 }
 
-void List::remove(int position) {
+template<typename T>
+void List<T>::remove(int position) {
     int elementsSize = this->elements.size();
 
     if ( position >= 0 && position < elementsSize) {
@@ -59,7 +67,8 @@ void List::remove(int position) {
     }
 }
 
-void List::print() {
+template<typename T>
+void List<T>::print() {
     int elementsSize = this->elements.size();
     for(int i = 0; i < elementsSize; i++) {
         cout << this->elements[i] << " ";
@@ -81,7 +90,7 @@ int main() {
 // Test fucntions
 
 void listTest() {
-    List list = List();
+    List<int> list = List<int>();
     int listSize = 5;
     int array[] = {1, 2, 3, 4, 5};
 
