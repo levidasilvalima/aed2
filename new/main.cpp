@@ -6,8 +6,10 @@ using namespace std;
 // START - List ------------------------------------------------------
 template<typename T>
 class List {
+
 private:
     vector<T> elements;
+    
 public:   
     List(int size);
     List();
@@ -78,11 +80,56 @@ void List<T>::print() {
 
 // END - List --------------------------------------------------------
 
+// START - Pair ------------------------------------------------------
+
+template<typename T1, typename T2>
+class Pair {
+
+public:
+    T1 first;
+    T2 second;  
+    Pair(T1 first, T2 second);   
+};
+
+template<typename T1, typename T2>
+Pair<T1, T2>::Pair(T1 i, T2 j) {
+    this->first = i;
+    this->second = j;
+}
+
+// END - Pair ---------------------------------------------------------
+
+// START - Map -------------------------------------------------------
+
+class Map {
+
+public:
+    int boardToGraph(int i, int j);
+    Pair<int, int> graphToBoard(int v);    
+};
+
+int Map::boardToGraph(int i, int j) {
+    return i*8 + j;
+}
+
+Pair<int, int> Map::graphToBoard(int v) {
+    int i = v/8;
+    int j = v%8;
+    Pair<int, int> pair = Pair<int, int>(i, j);
+    return pair;
+}
+
+// END - Map ----------------------------------------------------------
+
+
+
 void listTest();
+void pairTest();
+void mapTest();
 
 int main() {
 
-    listTest();
+    mapTest();
 
     return 0;
 }
@@ -104,4 +151,26 @@ void listTest() {
     list.print();
     list.remove(4);
     list.print();
+}
+
+void pairTest() {
+    Pair<int, int> pair = Pair<int,int>(1, 2);
+    cout << pair.first << " " << pair.second << endl;
+}
+
+void mapTest() {
+    Map map = Map();
+    for(int i = 0; i < 8; i++) {
+        for(int j = 0; j < 8; j++) {
+            cout << i << " " << j << " ";
+            
+            int vertex = map.boardToGraph(i,j);
+            
+            cout << vertex << " ";       
+            
+            Pair<int, int> pair = map.graphToBoard(vertex);
+            
+            cout << pair.first << " " << pair.second << endl;
+        }
+    }
 }
