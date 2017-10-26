@@ -233,14 +233,12 @@ void graphTest();
 
 int main() {
 
-<<<<<<< HEAD
+    listTest();
+    pairTest();
+    mapTest();
+    queueTest();
     graphTest();
 
-=======
-    mapTest();
-	graphTest();
-	queueTest();
->>>>>>> c1f08b7df0d4e87323f33b2eb8be187d89e67369
     return 0;
 }
 
