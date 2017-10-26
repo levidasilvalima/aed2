@@ -303,14 +303,9 @@ void countSortTest(){
 	list.insert(3);
 	list.insert(2);
 
-	for(int i=0; i < list.size(); i++){
-		cout << list.get(i) << ' ';
-	}
-	cout << endl;
+    list.print();
 
 	sort.counting(list);
-	for(int i=0; i < list.size(); i++){
-		cout << list.get(i) << ' ';
-	}
-	cout << endl;
+
+    list.print();
 }
