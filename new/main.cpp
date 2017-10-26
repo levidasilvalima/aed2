@@ -15,6 +15,7 @@ public:
     List();
     int size();
     void insert(T element);
+    bool validatePosistion(int position);
     T get(int position);
     void update(int position, T newValue);
     void remove(int position);
@@ -40,30 +41,38 @@ void List<T>::insert(T element) {
 }
 
 template<typename T>
-T List<T>::get(int position) {
-    int elementsSize = this->elements.size();
+bool List<T>::validatePosistion(int position) {
+  int elementSize = this->elements.size();
+  if (position >= 0 && position < elementSize) {
+    return true;
+  }
+  
+  return false;
+}
 
-    if ( position >= 0 && position < elementsSize) {
+template<typename T>
+T List<T>::get(int position) {
+
+    if (validatePosistion(position)) {
         return this->elements[position];
     }
 
     return -1;
 }
 
+
 template<typename T>
 void List<T>::update(int position, T newValue) {
-    int elementsSize = this->elements.size();
 
-    if ( position >= 0 && position < elementsSize) {
+    if (validatePosistion(position)) {
         this->elements[position] = newValue;
     }
 }
 
 template<typename T>
 void List<T>::remove(int position) {
-    int elementsSize = this->elements.size();
 
-    if ( position >= 0 && position < elementsSize) {
+    if (validatePosistion(position)) {
         vector<int>::iterator it = this->elements.begin();
         this->elements.erase(it + position);
     }
@@ -104,18 +113,18 @@ Pair<T1, T2>::Pair(T1 i, T2 j) {
 class Map {
 
 public:
-    int boardToGraph(int i, int j);
-    Pair<int, int> graphToBoard(int v);
+    int boardToGraph(int row, int column);
+    Pair<int, int> graphToBoard(int vertex);
 };
 
-int Map::boardToGraph(int i, int j) {
-    return i*8 + j;
+int Map::boardToGraph(int row, int column) {
+    return row*8 + column;
 }
 
-Pair<int, int> Map::graphToBoard(int v) {
-    int i = v/8;
-    int j = v%8;
-    Pair<int, int> pair = Pair<int, int>(i, j);
+Pair<int, int> Map::graphToBoard(int vertex) {
+    int row = vertex/8;
+    int column = vertex%8;
+    Pair<int, int> pair = Pair<int, int>(row, column);
     return pair;
 }
 
@@ -125,28 +134,25 @@ Pair<int, int> Map::graphToBoard(int v) {
 
 class Graph{
 private:
-	int n; // Ordem
-	int m; // Tamanho
+	int order;
+	int size;
 	List<int> *adj;
 	void destroy();
 
 public:
 	Graph();
-	Graph(int);
-	void initialize(int);
-	void insertEdge(int, int);
-	void removeEdge(int, int);
-	List<int>* getAdj();
-	void setAdj(List<int>*);
-	int* getN();
-	void setN(int);
-	int* getM();
-	void setM();
+	Graph(int order);
+	void initialize(int newOrder);
+	void insertEdge(int source, int destination);
+	List<int> getAdj();
+	int getSize();	
+	int getOrder();	
 	void print();
 };
 
 Graph::Graph(){
-	this->n = this->m = 0;
+	this->size = 0;
+    this->order = 0;
 	this->adj = NULL;
 }
 
@@ -155,21 +161,19 @@ Graph::Graph(int newOrder){
 }
 
 void Graph::initialize(int newOrder){
-
-	// if(this->n != 0) destroy();
-	this->n = newOrder;
+	this->order = newOrder;
 
 	adj = new List<int>[newOrder + 1];
 }
 
-void Graph::insertEdge(int u, int v){
-	adj[u].insert(v); // chave igual ao id do vertice
-	adj[v].insert(u);
-	this->m++;
+void Graph::insertEdge(int source, int destination){
+	adj[source].insert(destination); // key and vertice are same
+	adj[destination].insert(source);
+	this->size++;
 }
 
 void Graph::print(){
-	for(int i=1; i <= this->n; i++){
+	for(int i=1; i <= this->order; i++){
 		cout << "adj[" << i << "] = ";
 		adj[i].print();
 	}
@@ -185,8 +189,7 @@ void graphTest();
 
 int main() {
 
-    mapTest();
-	graphTest();
+    graphTest();
 
     return 0;
 }
