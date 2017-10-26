@@ -206,13 +206,13 @@ Sort::Sort() {}
  * will make counting sort work for this problem
  */
 void Sort::counting(List<int>& list) {
-List<int> array(ARRAY_SIZE);
+    List<int> array(ARRAY_SIZE);
 	int arraySize = array.size();
 
-for(int i = 0; i < arraySize; i++) {
-		int element = list.get(i);
-		array.update(i, 1);
- }
+    for(int i = 0; i < arraySize; i++) {
+		    int element = list.get(i);
+		    array.update(element, 1);
+     }
 
 	int index = 0;
 	for(int i = 0; i < ARRAY_SIZE; i++) {
