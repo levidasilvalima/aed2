@@ -24,7 +24,7 @@ public:
 
 template<typename T>
 List<T>::List(int size) {
-    this->elements.assign(size, -1);
+    this->elements.assign(size, 0);
 }
 
 template<typename T>
@@ -46,7 +46,7 @@ bool List<T>::validatePosistion(int position) {
   if (position >= 0 && position < elementSize) {
     return true;
   }
-  
+
   return false;
 }
 
@@ -130,49 +130,6 @@ Pair<int, int> Map::graphToBoard(int vertex) {
 
 // END - Map ----------------------------------------------------------
 
-
-// START - Queue ----------------------------------------------------------
-
-template<typename T>
-class Queue{
-private:
-	vector<T> q;
-public:
-	Queue();
-	void push(T);
-	T front();
-	void pop();
-	bool empty();
-};
-
-template<typename T>
-Queue<T>::Queue(){
-	this->q.clear();
-}
-
-template<typename T>
-void Queue<T>::push(T item){
-	this->q.push_back(item);
-}
-
-template<typename T>
-T Queue<T>::front(){
-	return this->q[0];
-}
-
-template<typename T>
-void Queue<T>::pop(){
-	this->q.erase(this->q.begin());
-}
-
-template<typename T>
-bool Queue<T>::empty(){
-	return this->q.size() == 0;
-}
-
-// END - Queue ----------------------------------------------------------
-
-
 // START - Graph ----------------------------------------------------------
 
 class Graph{
@@ -188,8 +145,8 @@ public:
 	void initialize(int newOrder);
 	void insertEdge(int source, int destination);
 	List<int> getAdj();
-	int getSize();	
-	int getOrder();	
+	int getSize();
+	int getOrder();
 	void print();
 };
 
@@ -209,6 +166,14 @@ void Graph::initialize(int newOrder){
 	adj = new List<int>[newOrder + 1];
 }
 
+int Graph::getSize(){
+	return this->size;
+}
+
+int Graph::getOrder(){
+	return this->order;
+}
+
 void Graph::insertEdge(int source, int destination){
 	adj[source].insert(destination); // key and vertice are same
 	adj[destination].insert(source);
@@ -224,20 +189,51 @@ void Graph::print(){
 
 // END - Graph ----------------------------------------------------------
 
+// START - Sort --------------------------------------------------------
+
+class Sort {
+private:
+ 	const int ARRAY_SIZE = 64;
+public:
+	Sort();
+	void counting(List<int>& list);
+};
+Sort::Sort() {}
+
+ /*
+ * Because elemnts are distinct on list and it are
+ * initialized  ith zero, just update  array to one
+ * will make counting sort work for this problem
+ */
+void Sort::counting(List<int>& list) {
+List<int> array(ARRAY_SIZE);
+	int arraySize = array.size();
+
+for(int i = 0; i < arraySize; i++) {
+		int element = list.get(i);
+		array.update(i, 1);
+ }
+
+	int index = 0;
+	for(int i = 0; i < ARRAY_SIZE; i++) {
+		if(array.get(i) != 0 ) {
+			list.update(index, i);
+			index++;
+		}
+	}
+}
+
+// END - Sort ----------------------------------------------------------
 
 void listTest();
 void pairTest();
 void mapTest();
-void queueTest();
 void graphTest();
+void countSortTest();
 
 int main() {
 
-    listTest();
-    pairTest();
-    mapTest();
-    queueTest();
-    graphTest();
+    countSortTest();
 
     return 0;
 }
@@ -283,16 +279,6 @@ void mapTest() {
     }
 }
 
-void queueTest(){
-	Queue<int> q;
-	for(int i=0; i < 10; i++) q.push(i);
-	while(!q.empty()){
-		int u = q.front(); q.pop();
-		cout << u << ' ';
-	}
-	cout << endl;
-}
-
 void graphTest(){
 	Graph g(5);
 	g.insertEdge(1, 2);
@@ -304,4 +290,27 @@ void graphTest(){
 	g.insertEdge(2, 4);
 
 	g.print();
+}
+
+void countSortTest(){
+	List<int> list;
+	Sort sort = Sort();
+	list.insert(5);
+	list.insert(21);
+	list.insert(13);
+	list.insert(1);
+	list.insert(8);
+	list.insert(3);
+	list.insert(2);
+
+	for(int i=0; i < list.size(); i++){
+		cout << list.get(i) << ' ';
+	}
+	cout << endl;
+
+	sort.counting(list);
+	for(int i=0; i < list.size(); i++){
+		cout << list.get(i) << ' ';
+	}
+	cout << endl;
 }
