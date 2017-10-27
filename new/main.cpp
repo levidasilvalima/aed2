@@ -3,6 +3,129 @@
 
 using namespace std;
 
+// START - Node ------------------------------------------------------
+template<typename T>
+class Node{
+public:
+	Node<T>* next;
+	Node<T>* prev;
+	T item;
+
+	Node();
+};
+
+template<typename T>
+Node<T>::Node(){
+	next = NULL;
+	prev = NULL;
+}
+
+// END - Node ------------------------------------------------------
+
+// START - Lista ------------------------------------------------------
+template<typename T>
+class Lista{
+private:
+	Node<T>* head;
+	Node<T>* tail;
+	int listSize;
+
+public:
+	Lista();
+	Lista(int newSize, T element);
+	int size();
+	void insert(T element);
+	bool validatePosistion(int position);
+	T get(int position);
+	void update(int position, T newValue);
+	void remove(int position);
+	void print();
+};
+
+template<typename T>
+Lista<T>::Lista(){
+	this->listSize = 0;
+	this->head = new Node<T>();
+	this->tail = new Node<T>();
+	this->head->next = this->tail;
+	this->tail->prev = this->head;
+}
+
+template<typename T>
+Lista<T>::Lista(int newSize, T element){
+	for(int i=0; i < newSize; i++){
+		insert(element);
+	}
+}
+
+template<typename T>
+int Lista<T>::size(){
+	return this->listSize;
+}
+
+template<typename T>
+void Lista<T>::insert(T element){
+	Node<T>* aux = new Node<T>();
+
+	this->tail->prev->next = aux;
+	aux->prev = this->tail->prev;
+	aux->next = this->tail;
+	this->tail->prev = aux;
+	aux->item = element;
+	this->listSize++;
+}
+
+template<typename T>
+bool Lista<T>::validatePosistion(int position){
+	if(0 <= position && position < this->listSize){
+		return true;
+	}
+	return false;
+}
+
+template<typename T>
+T Lista<T>::get(int position){
+	Node<T>* it = this->head->next;
+	for(int i=0; i < position; i++){
+		it = it->next;
+	}
+	return it->item;
+}
+
+template<typename T>
+void Lista<T>::update(int position, T newValue){
+	Node<T>* it = this->head->next;
+	for(int i=0; i < position; i++){
+		it = it->next;
+	}
+	it->item = newValue;
+}
+
+template<typename T>
+void Lista<T>::remove(int position){
+	Node<T>* it = this->head->next;
+	for(int i=0; i < position; i++){
+		it = it->next;
+	}
+	it->prev->next = it->next;
+	it->next->prev = it->prev;
+	this->listSize--;
+	delete it;
+}
+
+template<typename T>
+void Lista<T>::print(){
+	Node<T>* it = this->head->next;
+	if(listSize > 0) cout << it->item;
+	for(int i=1; i < this->listSize; i++){
+		it = it->next;
+		cout << ' ' << it->item;
+	}
+	cout << endl;
+}
+
+// END - Lista ------------------------------------------------------
+
 // START - List ------------------------------------------------------
 template<typename T>
 class List {
@@ -266,6 +389,7 @@ bool Queue<T>::empty(){
 
 // END - Queue ----------------------------------------------------------
 
+void listaTest();
 void listTest();
 void pairTest();
 void mapTest();
@@ -275,12 +399,30 @@ void queueTest();
 
 int main() {
 
-    queueTest();
+    listaTest();
 
     return 0;
 }
 
 // Test fucntions
+
+void listaTest() {
+    Lista<int> list = Lista<int>();
+    int listSize = 5;
+    int array[] = {1, 2, 3, 4, 5};
+
+    for(int i = 0; i < listSize; i++) {
+        int element = array[i];
+        list.insert(element);
+    }
+
+    list.print();
+    list.update(2, 9);
+    list.print();
+    list.remove(4);
+    list.print();
+}
+
 
 void listTest() {
     List<int> list = List<int>();
