@@ -267,7 +267,7 @@ public:
 	Graph(int order);
 	void initialize(int newOrder);
 	void insertEdge(int source, int destination);
-	List<int> getAdj();
+	List<int>* getAdj();
 	int getSize();
 	int getOrder();
 	void print();
@@ -287,6 +287,10 @@ void Graph::initialize(int newOrder){
 	this->order = newOrder;
 
 	adj = new List<int>[newOrder + 1];
+}
+
+List<int>* Graph::getAdj(){
+	return this->adj;
 }
 
 int Graph::getSize(){
