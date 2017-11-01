@@ -1,5 +1,6 @@
 #include<iostream>
 #include<vector>
+#define INFINTE 11235813
 
 using namespace std;
 
@@ -33,6 +34,7 @@ private:
 public:
 	List();
 	List(int newSize, T element);
+	void initialize(int newSize, T element);
 	int size();
 	void insert(T element);
 	bool validatePosistion(int position);
@@ -52,15 +54,10 @@ List<T>::List(){
 }
 
 template<typename T>
-List<T>::List(int newSize, T element){
+void List<T>::initialize(int newSize, T element){
 	for(int i=0; i < newSize; i++){
 		insert(element);
 	}
-}
-
-template<typename T>
-int List<T>::size(){
-	return this->listSize;
 }
 
 template<typename T>
@@ -74,6 +71,17 @@ void List<T>::insert(T element){
 	aux->item = element;
 	this->listSize++;
 }
+
+template<typename T>
+List<T>::List(int newSize, T element){
+	initialize(newSize, element);
+}
+
+template<typename T>
+int List<T>::size(){
+	return this->listSize;
+}
+
 
 template<typename T>
 bool List<T>::validatePosistion(int position){
@@ -95,6 +103,7 @@ T List<T>::get(int position){
 template<typename T>
 void List<T>::update(int position, T newValue){
 	Node<T>* it = this->head->next;
+
 	for(int i=0; i < position; i++){
 		it = it->next;
 	}
@@ -123,94 +132,6 @@ void List<T>::print(){
 	}
 	cout << endl;
 }
-
-// END - List ------------------------------------------------------
-
-// START - List ------------------------------------------------------
-// template<typename T>
-// class List {
-//
-// private:
-//     vector<T> elements;
-//
-// public:
-//     List(int size);
-//     List();
-//     int size();
-//     void insert(T element);
-//     bool validatePosistion(int position);
-//     T get(int position);
-//     void update(int position, T newValue);
-//     void remove(int position);
-//     void print();
-// };
-//
-// template<typename T>
-// List<T>::List(int size) {
-//     this->elements.assign(size, 0);
-// }
-//
-// template<typename T>
-// List<T>::List():List(0) {}
-//
-// template<typename T>
-// int List<T>::size() {
-//     return this->elements.size();
-// }
-//
-// template<typename T>
-// void List<T>::insert(T element) {
-//     this->elements.push_back(element);
-// }
-//
-// template<typename T>
-// bool List<T>::validatePosistion(int position) {
-//   int elementSize = this->elements.size();
-//   if (position >= 0 && position < elementSize) {
-//     return true;
-//   }
-//
-//   return false;
-// }
-//
-// template<typename T>
-// T List<T>::get(int position) {
-//
-//     if (validatePosistion(position)) {
-//         return this->elements[position];
-//     }
-//
-//     return -1;
-// }
-//
-//
-// template<typename T>
-// void List<T>::update(int position, T newValue) {
-//
-//     if (validatePosistion(position)) {
-//         this->elements[position] = newValue;
-//     }
-// }
-//
-// template<typename T>
-// void List<T>::remove(int position) {
-//
-//     if (validatePosistion(position)) {
-//         vector<int>::iterator it = this->elements.begin();
-//         this->elements.erase(it + position);
-//     }
-// }
-//
-// template<typename T>
-// void List<T>::print() {
-//     int elementsSize = this->elements.size();
-//     for(int i = 0; i < elementsSize; i++) {
-//         cout << this->elements[i] << " ";
-//     }
-//     cout << endl;
-// }
-
-// END - List --------------------------------------------------------
 
 // START - Pair ------------------------------------------------------
 
@@ -257,6 +178,43 @@ Pair<int, int> Map::graphToBoard(int vertex) {
 
 // END - Map ----------------------------------------------------------
 
+// START - Sort --------------------------------------------------------
+
+class Sort {
+private:
+	const int ARRAY_SIZE = 64;
+public:
+	Sort();
+	void counting(List<int>& list);
+};
+Sort::Sort() {}
+
+/*
+* Because elemnts are distinct on list and it are
+* initialized  ith zero, just update  array to one
+* will make counting sort work for this problem
+*/
+void Sort::counting(List<int>& list) {
+	List<int> array;
+	array = List<int>();
+	array = List<int>(64, 0);
+	int listSize = list.size();
+	for(int i = 0; i < listSize; i++) {
+		int element = list.get(i);
+		array.update(element, 1);
+	}
+
+	int index = 0;
+	for(int i = 0; i < ARRAY_SIZE; i++) {
+		if(array.get(i) != 0 ) {
+			list.update(index, i);
+			index++;
+		}
+	}
+}
+
+// END - Sort ----------------------------------------------------------
+
 // START - Graph ----------------------------------------------------------
 
 class Graph{
@@ -274,6 +232,7 @@ public:
 	List<int>* getAdj();
 	int getSize();
 	int getOrder();
+	void sort();
 	void print();
 };
 
@@ -311,6 +270,13 @@ void Graph::insertEdge(int source, int destination){
 	this->size++;
 }
 
+void Graph::sort(){
+	Sort s;
+	for(int i=0; i < this->order; i++){
+		// cout << "aqui" << endl;
+		s.counting(this->adj[i]);
+	}
+}
 
 void Graph::print(){
 	for(int i=0; i < this->order; i++){
@@ -321,41 +287,6 @@ void Graph::print(){
 
 // END - Graph ----------------------------------------------------------
 
-// START - Sort --------------------------------------------------------
-
-class Sort {
-private:
- 	const int ARRAY_SIZE = 64;
-public:
-	Sort();
-	void counting(List<int>& list);
-};
-Sort::Sort() {}
-
- /*
- * Because elemnts are distinct on list and it are
- * initialized  ith zero, just update  array to one
- * will make counting sort work for this problem
- */
-void Sort::counting(List<int>& list) {
-    List<int> array(ARRAY_SIZE, 0);
-	int arraySize = array.size();
-
-    for(int i = 0; i < arraySize; i++) {
-		    int element = list.get(i);
-		    array.update(element, 1);
-     }
-
-	int index = 0;
-	for(int i = 0; i < ARRAY_SIZE; i++) {
-		if(array.get(i) != 0 ) {
-			list.update(index, i);
-			index++;
-		}
-	}
-}
-
-// END - Sort ----------------------------------------------------------
 
 // START - Queue ----------------------------------------------------------
 
@@ -422,6 +353,60 @@ void build(Graph &g){
 	}
 }
 
+// START - Search ----------------------------------------------------------
+
+class Search{
+private:
+	const int WHITE = 0;
+	const int GREY = 1;
+	const int BLACK = 2;
+	const int INF = 1000000123;
+public:
+	Search();
+	List<int> breadthFirstSearch(Graph&,int);
+};
+
+Search::Search(){}
+
+List<int> Search::breadthFirstSearch(Graph &g, int src){
+	Queue<int> q;
+	List<int> color;
+	List<int> dist;
+	dist.initialize(64, INF);
+	color.initialize(64, WHITE);
+	//List<int> father;
+
+	color.update(src, GREY);
+	dist.update(src, 0);
+	//father.update(src, src);
+	q.push(src);
+
+	while(!q.empty()){
+		int u = q.front(); q.pop();
+
+		List<int>* adj = g.getAdj();
+		int tam = adj[u].size();
+		for(int i = 0; i < tam; i++){
+			int v = adj[u].get(i);
+			if(color.get(v) == WHITE){
+				color.update(v, GREY);
+				dist.update(v, dist.get(u) + 1);
+				//father.update(v, u);
+				q.push(v);
+			}
+		}
+		color.update(u, BLACK);
+	}
+	for(int i=0; i < dist.size(); i++){
+		int element = dist.get(i);
+		dist.update(i, element - 1);
+	}
+	return dist;
+
+}
+
+// END - Search ----------------------------------------------------------
+
 void listaTest();
 void listTest();
 void pairTest();
@@ -431,36 +416,53 @@ void countSortTest();
 void queueTest();
 
 int main() {
+	int n;
+	cin >> n;
+	for(int j=0; j < n; j++){
+		Graph chess;
+		Search search;
+		List<int> dist, result;
+		int min = INFINTE, source, knights[4];
+		string king, knight;
+		Map map;
+		for(int i=0; i < 4; i++){
+			cin >> knight;
+			knights[i] = map.boardToGraph(knight[1] - 1 - '0', knight[0] - 'a');
+		}
+		cin >> king;
 
-    graphTest();
+		source = map.boardToGraph(king[1] - 1 - '0', king[0] - 'a');
+
+		build(chess);
+
+		dist = search.breadthFirstSearch(chess, source);
+
+		for(int i=0; i < 4; i++){
+			int comp = dist.get(knights[i]);
+			if(comp < min){
+				min = comp;
+			}
+		}
+		for(int i=0; i < 4; i++){
+			int element = dist.get(knights[i]);
+			if(element == min){
+
+				result.insert(element);
+			}
+		}
+		result.print();
+
+	}
 
     return 0;
 }
 
 // Test fucntions
 
-void listaTest() {
-    List<int> list = List<int>();
-    int listSize = 5;
-    int array[] = {1, 2, 3, 4, 5};
-
-    for(int i = 0; i < listSize; i++) {
-        int element = array[i];
-        list.insert(element);
-    }
-
-    list.print();
-    list.update(2, 9);
-    list.print();
-    list.remove(4);
-    list.print();
-}
-
-
 void listTest() {
-    List<int> list = List<int>();
-    int listSize = 5;
-    int array[] = {1, 2, 3, 4, 5};
+    List<int> list;
+    int listSize = 6;
+    int array[] = {1, 2, 3, 4, 5, 9};
 
     for(int i = 0; i < listSize; i++) {
         int element = array[i];
@@ -468,10 +470,15 @@ void listTest() {
     }
 
     list.print();
-    list.update(2, 9);
+    list.update(5, 9);
     list.print();
     list.remove(4);
     list.print();
+	list.insert(21);
+	list.print();
+	list = List<int>();
+	list = List<int>(5, 5);
+	list.print();
 }
 
 void pairTest() {
@@ -498,17 +505,24 @@ void mapTest() {
 
 void graphTest(){
 	Graph g(5);
+	g.insertEdge(0, 1);
 	g.insertEdge(1, 2);
 	g.insertEdge(2, 3);
 	g.insertEdge(3, 4);
-	g.insertEdge(4, 5);
-	g.insertEdge(5, 1);
-	g.insertEdge(5, 2);
-	g.insertEdge(2, 4);
-
+	g.insertEdge(4, 0);
+	g.insertEdge(4, 1);
+	g.insertEdge(1, 3);
+	g.print();
+	cout << endl;
 	g.print();
 
 	build(g);
+
+
+	g.print();
+
+	cout << endl;
+	g.sort();
 
 	cout << endl;
 
