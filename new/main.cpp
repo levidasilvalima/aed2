@@ -22,17 +22,17 @@ Node<T>::Node(){
 
 // END - Node ------------------------------------------------------
 
-// START - Lista ------------------------------------------------------
+// START - List ------------------------------------------------------
 template<typename T>
-class Lista{
+class List{
 private:
 	Node<T>* head;
 	Node<T>* tail;
 	int listSize;
 
 public:
-	Lista();
-	Lista(int newSize, T element);
+	List();
+	List(int newSize, T element);
 	int size();
 	void insert(T element);
 	bool validatePosistion(int position);
@@ -43,7 +43,7 @@ public:
 };
 
 template<typename T>
-Lista<T>::Lista(){
+List<T>::List(){
 	this->listSize = 0;
 	this->head = new Node<T>();
 	this->tail = new Node<T>();
@@ -52,19 +52,19 @@ Lista<T>::Lista(){
 }
 
 template<typename T>
-Lista<T>::Lista(int newSize, T element){
+List<T>::List(int newSize, T element){
 	for(int i=0; i < newSize; i++){
 		insert(element);
 	}
 }
 
 template<typename T>
-int Lista<T>::size(){
+int List<T>::size(){
 	return this->listSize;
 }
 
 template<typename T>
-void Lista<T>::insert(T element){
+void List<T>::insert(T element){
 	Node<T>* aux = new Node<T>();
 
 	this->tail->prev->next = aux;
@@ -76,7 +76,7 @@ void Lista<T>::insert(T element){
 }
 
 template<typename T>
-bool Lista<T>::validatePosistion(int position){
+bool List<T>::validatePosistion(int position){
 	if(0 <= position && position < this->listSize){
 		return true;
 	}
@@ -84,7 +84,7 @@ bool Lista<T>::validatePosistion(int position){
 }
 
 template<typename T>
-T Lista<T>::get(int position){
+T List<T>::get(int position){
 	Node<T>* it = this->head->next;
 	for(int i=0; i < position; i++){
 		it = it->next;
@@ -93,7 +93,7 @@ T Lista<T>::get(int position){
 }
 
 template<typename T>
-void Lista<T>::update(int position, T newValue){
+void List<T>::update(int position, T newValue){
 	Node<T>* it = this->head->next;
 	for(int i=0; i < position; i++){
 		it = it->next;
@@ -102,7 +102,7 @@ void Lista<T>::update(int position, T newValue){
 }
 
 template<typename T>
-void Lista<T>::remove(int position){
+void List<T>::remove(int position){
 	Node<T>* it = this->head->next;
 	for(int i=0; i < position; i++){
 		it = it->next;
@@ -114,7 +114,7 @@ void Lista<T>::remove(int position){
 }
 
 template<typename T>
-void Lista<T>::print(){
+void List<T>::print(){
 	Node<T>* it = this->head->next;
 	if(listSize > 0) cout << it->item;
 	for(int i=1; i < this->listSize; i++){
@@ -124,91 +124,91 @@ void Lista<T>::print(){
 	cout << endl;
 }
 
-// END - Lista ------------------------------------------------------
+// END - List ------------------------------------------------------
 
 // START - List ------------------------------------------------------
-template<typename T>
-class List {
-
-private:
-    vector<T> elements;
-
-public:
-    List(int size);
-    List();
-    int size();
-    void insert(T element);
-    bool validatePosistion(int position);
-    T get(int position);
-    void update(int position, T newValue);
-    void remove(int position);
-    void print();
-};
-
-template<typename T>
-List<T>::List(int size) {
-    this->elements.assign(size, 0);
-}
-
-template<typename T>
-List<T>::List():List(0) {}
-
-template<typename T>
-int List<T>::size() {
-    return this->elements.size();
-}
-
-template<typename T>
-void List<T>::insert(T element) {
-    this->elements.push_back(element);
-}
-
-template<typename T>
-bool List<T>::validatePosistion(int position) {
-  int elementSize = this->elements.size();
-  if (position >= 0 && position < elementSize) {
-    return true;
-  }
-
-  return false;
-}
-
-template<typename T>
-T List<T>::get(int position) {
-
-    if (validatePosistion(position)) {
-        return this->elements[position];
-    }
-
-    return -1;
-}
-
-
-template<typename T>
-void List<T>::update(int position, T newValue) {
-
-    if (validatePosistion(position)) {
-        this->elements[position] = newValue;
-    }
-}
-
-template<typename T>
-void List<T>::remove(int position) {
-
-    if (validatePosistion(position)) {
-        vector<int>::iterator it = this->elements.begin();
-        this->elements.erase(it + position);
-    }
-}
-
-template<typename T>
-void List<T>::print() {
-    int elementsSize = this->elements.size();
-    for(int i = 0; i < elementsSize; i++) {
-        cout << this->elements[i] << " ";
-    }
-    cout << endl;
-}
+// template<typename T>
+// class List {
+//
+// private:
+//     vector<T> elements;
+//
+// public:
+//     List(int size);
+//     List();
+//     int size();
+//     void insert(T element);
+//     bool validatePosistion(int position);
+//     T get(int position);
+//     void update(int position, T newValue);
+//     void remove(int position);
+//     void print();
+// };
+//
+// template<typename T>
+// List<T>::List(int size) {
+//     this->elements.assign(size, 0);
+// }
+//
+// template<typename T>
+// List<T>::List():List(0) {}
+//
+// template<typename T>
+// int List<T>::size() {
+//     return this->elements.size();
+// }
+//
+// template<typename T>
+// void List<T>::insert(T element) {
+//     this->elements.push_back(element);
+// }
+//
+// template<typename T>
+// bool List<T>::validatePosistion(int position) {
+//   int elementSize = this->elements.size();
+//   if (position >= 0 && position < elementSize) {
+//     return true;
+//   }
+//
+//   return false;
+// }
+//
+// template<typename T>
+// T List<T>::get(int position) {
+//
+//     if (validatePosistion(position)) {
+//         return this->elements[position];
+//     }
+//
+//     return -1;
+// }
+//
+//
+// template<typename T>
+// void List<T>::update(int position, T newValue) {
+//
+//     if (validatePosistion(position)) {
+//         this->elements[position] = newValue;
+//     }
+// }
+//
+// template<typename T>
+// void List<T>::remove(int position) {
+//
+//     if (validatePosistion(position)) {
+//         vector<int>::iterator it = this->elements.begin();
+//         this->elements.erase(it + position);
+//     }
+// }
+//
+// template<typename T>
+// void List<T>::print() {
+//     int elementsSize = this->elements.size();
+//     for(int i = 0; i < elementsSize; i++) {
+//         cout << this->elements[i] << " ";
+//     }
+//     cout << endl;
+// }
 
 // END - List --------------------------------------------------------
 
@@ -220,8 +220,12 @@ class Pair {
 public:
     T1 first;
     T2 second;
+	Pair();
     Pair(T1 first, T2 second);
 };
+
+template<typename T1, typename T2>
+Pair<T1, T2>::Pair(){}
 
 template<typename T1, typename T2>
 Pair<T1, T2>::Pair(T1 i, T2 j) {
@@ -303,12 +307,13 @@ int Graph::getOrder(){
 
 void Graph::insertEdge(int source, int destination){
 	adj[source].insert(destination); // key and vertice are same
-	adj[destination].insert(source);
+	// adj[destination].insert(source);
 	this->size++;
 }
 
+
 void Graph::print(){
-	for(int i=1; i <= this->order; i++){
+	for(int i=0; i < this->order; i++){
 		cout << "adj[" << i << "] = ";
 		adj[i].print();
 	}
@@ -333,7 +338,7 @@ Sort::Sort() {}
  * will make counting sort work for this problem
  */
 void Sort::counting(List<int>& list) {
-    List<int> array(ARRAY_SIZE);
+    List<int> array(ARRAY_SIZE, 0);
 	int arraySize = array.size();
 
     for(int i = 0; i < arraySize; i++) {
@@ -392,6 +397,30 @@ bool Queue<T>::empty(){
 }
 
 // END - Queue ----------------------------------------------------------
+void build(Graph &g){
+	int dir[] = {1, 1, -1, -1, 2, 2, -2, -2};
+	int esq[] = {2, -2, 2, -2, 1, -1, 1, -1};
+
+	Map map;
+	int v, di, dj;
+	Pair<int, int> rowColumn;
+
+	g = Graph(64);
+
+	for(int u=0; u < 64; u++){
+		rowColumn = map.graphToBoard(u);
+
+		for(int j=0; j < 8; j++){
+			di = rowColumn.first + dir[j];
+			dj = rowColumn.second + esq[j];
+
+			if(0 <= di && di < 8 && 0 <= dj && dj < 8){
+				v = map.boardToGraph(di, dj);
+				g.insertEdge(u, v);
+			}
+		}
+	}
+}
 
 void listaTest();
 void listTest();
@@ -403,7 +432,7 @@ void queueTest();
 
 int main() {
 
-    listaTest();
+    graphTest();
 
     return 0;
 }
@@ -411,7 +440,7 @@ int main() {
 // Test fucntions
 
 void listaTest() {
-    Lista<int> list = Lista<int>();
+    List<int> list = List<int>();
     int listSize = 5;
     int array[] = {1, 2, 3, 4, 5};
 
@@ -476,6 +505,12 @@ void graphTest(){
 	g.insertEdge(5, 1);
 	g.insertEdge(5, 2);
 	g.insertEdge(2, 4);
+
+	g.print();
+
+	build(g);
+
+	cout << endl;
 
 	g.print();
 }
