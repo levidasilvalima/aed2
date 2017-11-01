@@ -4,7 +4,6 @@
 
 using namespace std;
 
-// START - Node ------------------------------------------------------
 template<typename T>
 class Node{
 public:
@@ -21,9 +20,6 @@ Node<T>::Node(){
 	prev = NULL;
 }
 
-// END - Node ------------------------------------------------------
-
-// START - List ------------------------------------------------------
 template<typename T>
 class List{
 private:
@@ -82,7 +78,6 @@ int List<T>::size(){
 	return this->listSize;
 }
 
-
 template<typename T>
 bool List<T>::validatePosistion(int position){
 	if(0 <= position && position < this->listSize){
@@ -133,8 +128,6 @@ void List<T>::print(){
 	cout << endl;
 }
 
-// START - Pair ------------------------------------------------------
-
 template<typename T1, typename T2>
 class Pair {
 
@@ -154,10 +147,6 @@ Pair<T1, T2>::Pair(T1 i, T2 j) {
     this->second = j;
 }
 
-// END - Pair ---------------------------------------------------------
-
-// START - Map -------------------------------------------------------
-
 class Map {
 
 public:
@@ -176,10 +165,6 @@ Pair<int, int> Map::graphToBoard(int vertex) {
     return pair;
 }
 
-// END - Map ----------------------------------------------------------
-
-// START - Sort --------------------------------------------------------
-
 class Sort {
 private:
 	const int ARRAY_SIZE = 64;
@@ -189,11 +174,6 @@ public:
 };
 Sort::Sort() {}
 
-/*
-* Because elemnts are distinct on list and it are
-* initialized  ith zero, just update  array to one
-* will make counting sort work for this problem
-*/
 void Sort::counting(List<int>& list) {
 	List<int> array;
 	array = List<int>();
@@ -212,10 +192,6 @@ void Sort::counting(List<int>& list) {
 		}
 	}
 }
-
-// END - Sort ----------------------------------------------------------
-
-// START - Graph ----------------------------------------------------------
 
 class Graph{
 private:
@@ -265,15 +241,13 @@ int Graph::getOrder(){
 }
 
 void Graph::insertEdge(int source, int destination){
-	adj[source].insert(destination); // key and vertice are same
-	// adj[destination].insert(source);
+	adj[source].insert(destination);
 	this->size++;
 }
 
 void Graph::sort(){
 	Sort s;
 	for(int i=0; i < this->order; i++){
-		// cout << "aqui" << endl;
 		s.counting(this->adj[i]);
 	}
 }
@@ -284,11 +258,6 @@ void Graph::print(){
 		adj[i].print();
 	}
 }
-
-// END - Graph ----------------------------------------------------------
-
-
-// START - Queue ----------------------------------------------------------
 
 template<typename T>
 class Queue{
@@ -327,7 +296,6 @@ bool Queue<T>::empty(){
 	return this->q.size() == 0;
 }
 
-// END - Queue ----------------------------------------------------------
 void build(Graph &g){
 	int dir[] = {1, 1, -1, -1, 2, 2, -2, -2};
 	int esq[] = {2, -2, 2, -2, 1, -1, 1, -1};
@@ -353,8 +321,6 @@ void build(Graph &g){
 	}
 }
 
-// START - Search ----------------------------------------------------------
-
 class Search{
 private:
 	const int WHITE = 0;
@@ -374,11 +340,9 @@ List<int> Search::breadthFirstSearch(Graph &g, int src){
 	List<int> dist;
 	dist.initialize(64, INF);
 	color.initialize(64, WHITE);
-	//List<int> father;
 
 	color.update(src, GREY);
 	dist.update(src, 0);
-	//father.update(src, src);
 	q.push(src);
 
 	while(!q.empty()){
@@ -391,7 +355,6 @@ List<int> Search::breadthFirstSearch(Graph &g, int src){
 			if(color.get(v) == WHITE){
 				color.update(v, GREY);
 				dist.update(v, dist.get(u) + 1);
-				//father.update(v, u);
 				q.push(v);
 			}
 		}
@@ -404,16 +367,6 @@ List<int> Search::breadthFirstSearch(Graph &g, int src){
 	return dist;
 
 }
-
-// END - Search ----------------------------------------------------------
-
-void listaTest();
-void listTest();
-void pairTest();
-void mapTest();
-void graphTest();
-void countSortTest();
-void queueTest();
 
 int main() {
 	int n;
@@ -455,104 +408,4 @@ int main() {
 	}
 
     return 0;
-}
-
-// Test fucntions
-
-void listTest() {
-    List<int> list;
-    int listSize = 6;
-    int array[] = {1, 2, 3, 4, 5, 9};
-
-    for(int i = 0; i < listSize; i++) {
-        int element = array[i];
-        list.insert(element);
-    }
-
-    list.print();
-    list.update(5, 9);
-    list.print();
-    list.remove(4);
-    list.print();
-	list.insert(21);
-	list.print();
-	list = List<int>();
-	list = List<int>(5, 5);
-	list.print();
-}
-
-void pairTest() {
-    Pair<int, int> pair = Pair<int,int>(1, 2);
-    cout << pair.first << " " << pair.second << endl;
-}
-
-void mapTest() {
-    Map map = Map();
-    for(int i = 0; i < 8; i++) {
-        for(int j = 0; j < 8; j++) {
-            cout << i << " " << j << " ";
-
-            int vertex = map.boardToGraph(i,j);
-
-            cout << vertex << " ";
-
-            Pair<int, int> pair = map.graphToBoard(vertex);
-
-            cout << pair.first << " " << pair.second << endl;
-        }
-    }
-}
-
-void graphTest(){
-	Graph g(5);
-	g.insertEdge(0, 1);
-	g.insertEdge(1, 2);
-	g.insertEdge(2, 3);
-	g.insertEdge(3, 4);
-	g.insertEdge(4, 0);
-	g.insertEdge(4, 1);
-	g.insertEdge(1, 3);
-	g.print();
-	cout << endl;
-	g.print();
-
-	build(g);
-
-
-	g.print();
-
-	cout << endl;
-	g.sort();
-
-	cout << endl;
-
-	g.print();
-}
-
-void countSortTest(){
-	List<int> list;
-	Sort sort = Sort();
-	list.insert(5);
-	list.insert(21);
-	list.insert(13);
-	list.insert(1);
-	list.insert(8);
-	list.insert(3);
-	list.insert(2);
-
-    list.print();
-
-	sort.counting(list);
-
-    list.print();
-}
-
-void queueTest(){
-	Queue<int> q;
-	for(int i=0; i < 10; i++) q.push(i);
-	while(!q.empty()){
-		int u = q.front(); q.pop();
-		cout << u << ' ';
-	}
-	cout << endl;
 }
