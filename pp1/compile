@@ -1,0 +1,24 @@
+# limpa a tela
+clear
+
+# compila no mode restrito, tem como resposta o compilado run
+g++ -std=c++11 -Wall -Wextra -Wshadow -Wstrict-aliasing -pedantic -fmax-errors=5 -Werror -Wunreachable-code -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wlogical-op -Wmissing-include-dirs -Wnoexcept -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wsign-promo -Wstrict-null-sentinel -Wstrict-overflow=5 -Wswitch-default -Wundef -Wno-unused -Wno-variadic-macros -Wno-parentheses -fdiagnostics-show-option $1.cpp -o run
+
+echo "Comando para testar diferenças"
+echo "	$> diff saida_referencia.out said_programa.out"
+echo ""
+echo "OBS.: Caso não apresente resposta na saída do comando resultado do caso está correto, pois, não há diferença da saída de referência para a saída gerada pelo programa de teste."
+echo ""
+echo ""
+
+# executa casos de teste
+casos=14
+for i in `seq 1 $casos`
+do
+    echo "Caso de teste $i"
+    ./run < casos/$i.in > out
+    diff casos/$i.out out
+    echo ""
+done
+
+rm run out
