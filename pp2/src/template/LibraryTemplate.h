@@ -1,7 +1,7 @@
 # ifndef LIBRARY_TEMPLATE
 # define LIBRARY_TEMPLATE
 
-class YourClass {
+class LibraryTemplate() {
 private:
     // Attributes
 
