@@ -14,13 +14,15 @@ int main() {
         cout << "GOOD" << endl;
     } else {
         cout << "NO_GOOD" << endl;
-    }   
+    }
 
     return 0;
 }
 
 bool test() {
     DoubleLinkedList<int> list = DoubleLinkedList<int>();
+	DoubleLinkedList<int> listM(10, 5);
+
     int listSize = 5;
     int array1[] = {1, 2, 3, 4, 5};
     int array2[] = {1, 2, 9, 4, 5};
@@ -55,7 +57,16 @@ bool test() {
     }
     count += (count1 == listSize - 1);
 
-    int amountTest = 3;
+	// validate Constructor
+
+	bool accept = 1;
+	for(int i=0; i < 10; i++){
+		accept &= (listM.get(i) == 5);
+	}
+
+	count += accept;
+
+    int amountTest = 4;
 
     if (count == amountTest) {
         return true;

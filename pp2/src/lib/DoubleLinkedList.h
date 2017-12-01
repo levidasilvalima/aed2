@@ -9,11 +9,11 @@ private:
 	Node<T>* head;
 	Node<T>* tail;
 	int listSize;
+	void initialize(int newSize, T element);
 
 public:
 	DoubleLinkedList();
 	DoubleLinkedList(int newSize, T element);
-	void initialize(int newSize, T element);
 	int size();
 	void insert(T element);
 	bool validatePosistion(int position);
@@ -34,6 +34,11 @@ DoubleLinkedList<T>::DoubleLinkedList(){
 
 template<typename T>
 void DoubleLinkedList<T>::initialize(int newSize, T element){
+	this->listSize = 0;
+	this->head = new Node<T>();
+	this->tail = new Node<T>();
+	this->head->next = this->tail;
+	this->tail->prev = this->head;
 	for(int i=0; i < newSize; i++){
 		insert(element);
 	}
