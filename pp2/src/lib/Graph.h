@@ -6,41 +6,41 @@ private:
 	int order;
 	int size;
 	double **adj;
-  void initialize(int newOrder);
-  bool validateVertices(int source, int destination);
+    void initialize(int newOrder);
+    bool validateVertices(int source, int destination);
 
 public:
 	Graph();
 	Graph(int order);
 	void insertEdge(int source, int destination, double weight);
-  double getWeight(int source, int destination);
-  void setWeight(int source, int destination, double weight);
+    double getWeight(int source, int destination);
+    void setWeight(int source, int destination, double weight);
 	void print();
 
 };
 
 Graph::Graph(){
 	this->size = 0;
-  this->order = 0;
+    this->order = 0;
 	this->adj = NULL;
 }
 
 Graph::Graph(int newOrder){
-  this->size = 0;
-  this->order = 0;
+    this->size = 0;
+    this->order = 0;
 	this->adj = NULL;
 
 	initialize(newOrder + 1);
 }
 
 void Graph::initialize(int newOrder){
-  newOrder++;
+    newOrder++;
 	this->order = newOrder;
-  this->adj = new double*[newOrder];
+    this->adj = new double*[newOrder];
+	
 	for(int i=0; i <= newOrder; i++) {
-    this->adj[i] = new double[newOrder];
-  }
-
+        this->adj[i] = new double[newOrder];
+    }
 }
 
 bool Graph::validateVertices(int source, int destination){
@@ -54,8 +54,8 @@ bool Graph::validateVertices(int source, int destination){
 }
 
 void Graph::insertEdge(int source, int destination, double weight){
-	this->adj[source][destination] = weight;
-  this->adj[source][destination] = weight;
+    this->adj[source][destination] = weight;
+    this->adj[source][destination] = weight;
 	this->size++;
 }
 
@@ -76,9 +76,9 @@ void Graph::print(){
 	for(int u=1; u < this->order; u++){
 		std::cout << "adj[" << u << "] = ";
 		for(int v=1; v <= this->order; v++){
-      std::cout << this->adj[u][v] << ' ';
-    }
-    std::cout << std::endl;
+            std::cout << this->adj[u][v] << ' ';
+        }
+        std::cout << std::endl;
 	}
 }
 

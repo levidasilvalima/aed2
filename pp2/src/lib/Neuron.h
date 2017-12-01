@@ -8,6 +8,7 @@ private:
     bool health;
 
 public:
+    Neuron();
     Neuron(int source, int destination, double weight, bool neuronIsHealth);
     Neuron(Edge newEdge, bool neuronIsHealth);
     int getSource();
@@ -29,6 +30,11 @@ public:
         return weight > otherNeuronWeight;
     }
 };
+
+Neuron::Neuron() {
+    this->edge = Edge(-1, -1, -1);
+    this->health = false;    
+}
 
 Neuron::Neuron(int source, int destination, double weight, bool neuronIsHealth) {
     this->edge = Edge(source, destination, weight);

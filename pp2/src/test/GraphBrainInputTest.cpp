@@ -1,5 +1,5 @@
 # include <iostream>
-# include "../lib/GraphBrain.h"
+# include "../lib/GraphBrainInput.h"
 
 using namespace std;
 
@@ -9,7 +9,7 @@ int main() {
 
     bool result = test();
 
-    cout << "Node: ";
+    cout << "GraphBrainInput: ";
     if (result) {
         cout << "GOOD" << endl;
     } else {
@@ -21,8 +21,8 @@ int main() {
 
 bool test() {
 
-    GraphBrain graphBrain = GraphBrain();
-    graphBrain.readFromDefaultInput();
+    GraphBrainInput graphBrainInput = GraphBrainInput();
+    graphBrainInput.readFromDefaultInput();
 
-    return true;
+    return false;
 }

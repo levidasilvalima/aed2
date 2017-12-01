@@ -9,7 +9,7 @@ int main() {
 
     bool result = test();
 
-    cout << "Node: ";
+    cout << "Neuron: ";
     if (result) {
         cout << "GOOD" << endl;
     } else {
