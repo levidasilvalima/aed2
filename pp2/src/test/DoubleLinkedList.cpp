@@ -22,12 +22,13 @@ int main() {
 
 bool test() {
     DoubleLinkedList<int> list = DoubleLinkedList<int>();
-	DoubleLinkedList<int> listM(10, 5);
+	DoubleLinkedList<int> listM(6, 5);
 
     int listSize = 5;
     int array1[] = {1, 2, 3, 4, 5};
     int array2[] = {1, 2, 9, 4, 5};
     int array3[] = {1, 2, 9, 4};
+	int array4[] = {5, 5, 5, 5, 5, 5};
 
     for(int i = 0; i < listSize; i++) {
         int element = array1[i];
@@ -45,16 +46,11 @@ bool test() {
 
     // validate remove
     list.remove(4);
-    count += check(&list, array3);    
+    count += check(&list, array3);
 
 	// validate Constructor
 
-	bool accept = 1;
-	for(int i=0; i < 10; i++){
-		accept &= (listM.get(i) == 5);
-	}
-
-	count += accept;
+	count += check(&listM, array4);
 
     int amountTest = 4;
 
@@ -72,7 +68,7 @@ bool check(DoubleLinkedList<int>* list, int array[]) {
     for(int i = 0; i < listSize; i++) {
         count += (list->get(i) == array[i]);
     }
-    
+
     if (count == listSize) {
         return true;
     } else {
