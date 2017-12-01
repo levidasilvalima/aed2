@@ -9,6 +9,7 @@ private:
 
 public:
     Edge(int source, int destination, double weight);
+    Edge();
     int getSource();
     int getDestination();
     double getWeight();    
@@ -18,6 +19,12 @@ Edge::Edge(int vertexSource, int vertexDestination, double edgeWeight) {
     this->source = vertexSource;
     this->destination = vertexDestination;
     this->weight = edgeWeight;
+}
+
+Edge::Edge() {
+    this->source = -1;
+    this->destination = -1;
+    this->weight = -1;
 }
 
 int Edge::getSource() {
