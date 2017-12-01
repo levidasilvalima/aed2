@@ -4,6 +4,7 @@
 using namespace std;
 
 bool test();
+bool check(DoubleLinkedList<int>* list, int array[]);
 
 int main() {
 
@@ -31,33 +32,37 @@ bool test() {
         list.insert(element);
     }
 
-    // validate insertion
     int count = 0;
-    int count1 = 0;
-    for(int i = 0; i < listSize; i++) {
-        count1 += (list.get(i) == array1[i]);
-    }
-    count += (count1 == listSize);
+
+    // validate insertion
+    count += check(&list, array1);
 
     // validate update
     list.update(2, 9);
-    count1 = 0;
-    for(int i = 0; i < listSize; i++) {
-        count1 += (list.get(i) == array2[i]);
-    }
-    count += (count1 == listSize);
+    count += check(&list, array2);
 
     // validate remove
     list.remove(4);
-    count1 = 0;
-    for(int i = 0; i < listSize - 1; i++) {
-        count1 += (list.get(i) == array3[i]);
-    }
-    count += (count1 == listSize - 1);
+    count += check(&list, array3);    
 
     int amountTest = 3;
 
     if (count == amountTest) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool check(DoubleLinkedList<int>* list, int array[]) {
+    int listSize = list->size();
+    int count = 0;
+
+    for(int i = 0; i < listSize; i++) {
+        count += (list->get(i) == array[i]);
+    }
+    
+    if (count == listSize) {
         return true;
     } else {
         return false;
