@@ -1,5 +1,5 @@
-#include<iostream>
-#include"../lib/DoubleLinkedList.h"
+# include <iostream>
+# include "../lib/DoubleLinkedList.h"
 
 using namespace std;
 

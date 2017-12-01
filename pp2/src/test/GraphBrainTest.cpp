@@ -1,5 +1,5 @@
-#include<iostream>
-#include"../lib/GraphBrain.h"
+# include <iostream>
+# include "../lib/GraphBrain.h"
 
 using namespace std;
 

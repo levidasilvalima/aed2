@@ -1,5 +1,5 @@
-#include<iostream>
-#include"../lib/Item.h"
+# include <iostream>
+# include "../lib/Item.h"
 
 using namespace std;
 

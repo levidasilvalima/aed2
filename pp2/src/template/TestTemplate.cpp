@@ -1,5 +1,5 @@
-#include<iostream>
-#include"YOUR_LIBRARY"
+# include <iostream>
+# include "../lib/YOUR_LIBRARY"
 
 using namespace std;
 

@@ -1,5 +1,5 @@
-#include<iostream>
-#include"../lib/Edge.h"
+# include <iostream>
+# include "../lib/Edge.h"
 
 using namespace std;
 

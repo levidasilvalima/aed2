@@ -1,5 +1,5 @@
-#include<iostream>
-#include"../lib/Node.h"
+# include <iostream>
+# include "../lib/Node.h"
 
 using namespace std;
 

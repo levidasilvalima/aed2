@@ -1,5 +1,5 @@
-#include<iostream>
-#include"../lib/Graph.h"
+# include <iostream>
+# include "../lib/Graph.h"
 
 using namespace std;
 
