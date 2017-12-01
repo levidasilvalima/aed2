@@ -11,4 +11,8 @@ public:
 
 }
 
+LibraryTemplate::LibraryTemplate() {
+
+}
+
 # endif
