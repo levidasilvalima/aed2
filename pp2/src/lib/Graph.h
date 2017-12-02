@@ -1,3 +1,4 @@
+# include "Item.h"
 # ifndef GRAPH_H
 # define GRAPH_H
 
@@ -5,7 +6,7 @@ class Graph{
 private:
 	int order;
 	int size;
-	double **adj;
+	Item<int, double> **adj;
     void initialize(int newOrder);
     bool validateVertices(int source, int destination);
 
@@ -36,10 +37,10 @@ Graph::Graph(int newOrder){
 void Graph::initialize(int newOrder){
     newOrder++;
 	this->order = newOrder;
-    this->adj = new double*[newOrder];
+    this->adj = new Item<int, double>*[newOrder];
 	
 	for(int i=0; i <= newOrder; i++) {
-        this->adj[i] = new double[newOrder];
+        this->adj[i] = new Item<int, double>[newOrder];
     }
 }
 
@@ -54,21 +55,30 @@ bool Graph::validateVertices(int source, int destination){
 }
 
 void Graph::insertEdge(int source, int destination, double weight){
-    this->adj[source][destination] = weight;
-    this->adj[destination][source] = weight;
-	this->size++;
+    if (this->validateVertices(source, destination) ) {    
+        Item<int, double> item = Item<int, double>(this->size, weight);
+        this->adj[source][destination] = item;
+        this->adj[destination][source] = item;
+	    this->size++;
+    }
 }
 
 double Graph::getWeight(int source, int destination){
-  if(validateVertices(source, destination)){
-    return this->adj[source][destination];
+  if(this->validateVertices(source, destination)){
+    Item<int, double> item = this->adj[source][destination];
+    double weight = item.getValue();
+
+    return weight;
   }
+
   return 0;
 }
 
 void Graph::setWeight(int source, int destination, double weight){
   if(validateVertices(source, destination)){
-    this->adj[source][destination] = weight;
+    Item<int, double> item = this->adj[source][destination];
+    int key = item.getKey();
+    this->adj[source][destination] = Item<int, double>(key, weight);
   }
 }
 
@@ -76,7 +86,7 @@ void Graph::print(){
 	for(int u=1; u < this->order; u++){
 		std::cout << "adj[" << u << "] = ";
 		for(int v=1; v <= this->order; v++){
-            std::cout << this->adj[u][v] << ' ';
+            std::cout << this->adj[u][v].getValue() << ' ';
         }
         std::cout << std::endl;
 	}
