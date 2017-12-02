@@ -5,7 +5,21 @@ do
     if ! grep -q "GraphBrain" $entry
         then
             ./script/compile-execute.sh $entry run
+        if ! [ $? -eq 0 ]; then
+            clear
+            echo "Error command: ./script/compile-execute.sh $entry run"
+            echo
+            ./script/compile-execute.sh $entry run
+            break
+        fi
     else
         ./script/compile-execute.sh $entry run < cases/1.in
-    fi
+        if ! [ $? -eq 0 ]; then
+            clear
+            echo "Error command: ./script/compile-execute.sh $entry run < cases/1.in"
+            echo
+            ./script/compile-execute.sh $entry run < cases/1.in
+            break
+        fi
+    fi    
 done
