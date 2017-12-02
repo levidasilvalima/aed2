@@ -55,7 +55,7 @@ bool Graph::validateVertices(int source, int destination){
 
 void Graph::insertEdge(int source, int destination, double weight){
     this->adj[source][destination] = weight;
-    this->adj[source][destination] = weight;
+    this->adj[destination][source] = weight;
 	this->size++;
 }
 
