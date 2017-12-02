@@ -62,9 +62,8 @@ bool test() {
     if(count == amount){
     	return true;
     }
+
     return false;
-    
-    return true;
 }
 
 // function body to Unit Test

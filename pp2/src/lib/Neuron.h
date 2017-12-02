@@ -36,7 +36,13 @@ public:
         bool otherHealth = otherNeuron.isHealth();
         Edge otherEdge = otherNeuron.edge;
         
-        return health == otherHealth && (edge == otherEdge);
+        if (health == otherHealth) {
+            if (edge == otherEdge) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 
