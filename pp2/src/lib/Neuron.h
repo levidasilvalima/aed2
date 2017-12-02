@@ -29,6 +29,17 @@ public:
         
         return weight > otherNeuronWeight;
     }
+    bool operator==(Neuron otherNeuron) {
+        double weight = edge.getWeight();
+        double otherNeuronWeight = otherNeuron.getWeight();
+        
+        bool otherHealth = otherNeuron.isHealth();
+        Edge otherEdge = otherNeuron.edge;
+        
+        return health == otherHealth && (edge == otherEdge);
+    }
+
+
 };
 
 Neuron::Neuron() {
