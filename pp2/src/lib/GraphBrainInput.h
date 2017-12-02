@@ -1,6 +1,4 @@
-# include "Neuron.h"
-# include "DoubleLinkedList.h"
-# include "Block.h"
+# include "Graph.h"
 # ifndef GRAPH_BRAIN_INPUT
 # define GRAPH_BRAIN_INPUT
 
@@ -8,21 +6,30 @@ class GraphBrainInput {
 private:
     int size;
     int order;
-    DoubleLinkedList<Edge> edgeList;
-    
+    Graph graph;
+    void insertEdge(int source, int destination, double weight);
+    void createGraph(int newOrder);
+
 public:
     GraphBrainInput();
     int getSize();
     int getOrder();
     double getWeight(int source, int destination);
-    void insertEdge(Edge edge);
     void readFromDefaultInput();
 };
+
+void GraphBrainInput::insertEdge(int source, int destination, double weight) {    
+    this->graph.insertEdge(source, destination, weight);
+}
+
+void GraphBrainInput::createGraph(int newOrder) {
+    this->graph = Graph(order);
+}
 
 GraphBrainInput::GraphBrainInput() {
     this->size = 0;
     this->order = 0;
-    this->edgeList = DoubleLinkedList<Edge>();
+    this->graph = Graph();
 }
 
 int GraphBrainInput::getSize() {
@@ -34,25 +41,23 @@ int GraphBrainInput::getOrder() {
 }
 
 double GraphBrainInput::getWeight(int source, int destination) {
-    Edge edge = this->edgeList.get(source * this->order + destination);
-    double weight = edge.getWeight();
+    double weight = this->graph.getWeight(source, destination);
     return weight;
-}   
-
-void GraphBrainInput::insertEdge(Edge edge) {
-    this->edgeList.insert(edge);
 }
+
 
 void GraphBrainInput::readFromDefaultInput() {
     std::cin >> this->order >> this->size;
     
+    this->createGraph(this->order);
+
     int source, destination;
     double weight;
-    for(int i = 0; i < this->size; i++) {
+    for (int i = 0; i < this->size; i++) {
         std::cin >> source >> destination >> weight;
-        Edge edge = Edge(source, destination, weight);
-        this->edgeList.insert(edge);
+        this->insertEdge(source, destination, weight);
     }
-}
+
+}   
 
 # endif
