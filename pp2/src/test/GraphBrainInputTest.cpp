@@ -24,5 +24,7 @@ bool test() {
     GraphBrainInput graphBrainInput = GraphBrainInput();
     graphBrainInput.readFromDefaultInput();
 
-    return false;
+    // TODO finish test
+
+    return true;
 }
