@@ -1,4 +1,4 @@
-# include "Item.h"
+# include "Dictionary.h"
 # ifndef GRAPH_H
 # define GRAPH_H
 
@@ -6,7 +6,7 @@ class Graph{
 private:
 	int order;
 	int size;
-	Item<int, double> **adj;
+	Dictionary<int, double> **adj;
     void initialize(int newOrder);
     bool validateVertices(int source, int destination);
 
@@ -37,10 +37,10 @@ Graph::Graph(int newOrder){
 void Graph::initialize(int newOrder){
     newOrder++;
 	this->order = newOrder;
-    this->adj = new Item<int, double>*[newOrder];
+    this->adj = new Dictionary<int, double>*[newOrder];
 	
 	for(int i=0; i <= newOrder; i++) {
-        this->adj[i] = new Item<int, double>[newOrder];
+        this->adj[i] = new Dictionary<int, double>[newOrder];
     }
 }
 
@@ -56,17 +56,17 @@ bool Graph::validateVertices(int source, int destination){
 
 void Graph::insertEdge(int source, int destination, double weight){
     if (this->validateVertices(source, destination) ) {    
-        Item<int, double> item = Item<int, double>(this->size, weight);
-        this->adj[source][destination] = item;
-        this->adj[destination][source] = item;
+        Dictionary<int, double> dictionary = Dictionary<int, double>(this->size, weight);
+        this->adj[source][destination] = dictionary;
+        this->adj[destination][source] = dictionary;
 	    this->size++;
     }
 }
 
 double Graph::getWeight(int source, int destination){
   if(this->validateVertices(source, destination)){
-    Item<int, double> item = this->adj[source][destination];
-    double weight = item.getValue();
+    Dictionary<int, double> dictionary = this->adj[source][destination];
+    double weight = dictionary.getValue();
 
     return weight;
   }
@@ -76,9 +76,9 @@ double Graph::getWeight(int source, int destination){
 
 void Graph::setWeight(int source, int destination, double weight){
   if(validateVertices(source, destination)){
-    Item<int, double> item = this->adj[source][destination];
-    int key = item.getKey();
-    this->adj[source][destination] = Item<int, double>(key, weight);
+    Dictionary<int, double> dictionary = this->adj[source][destination];
+    int key = dictionary.getKey();
+    this->adj[source][destination] = Dictionary<int, double>(key, weight);
   }
 }
 

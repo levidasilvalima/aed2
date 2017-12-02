@@ -2,34 +2,34 @@
 # define ITEM_H
 
 template<typename T1, typename T2>
-class Item{
+class Dictionary{
 public:
   T1 key;
   T2 value;
-	Item();
-  Item(T1 newKey, T2 newValue);
+	Dictionary();
+  Dictionary(T1 newKey, T2 newValue);
   T1 getKey();
   T2 getValue();
 };
 
 template<typename T1, typename T2>
-Item<T1, T2>::Item(){
+Dictionary<T1, T2>::Dictionary(){
 
 }
 
 template<typename T1, typename T2>
-Item<T1, T2>::Item(T1 newKey, T2 newValue){
+Dictionary<T1, T2>::Dictionary(T1 newKey, T2 newValue){
   this->key = newKey;
   this->value = newValue;
 }
 
 template<typename T1, typename T2>
-T1 Item<T1, T2>::getKey(){
+T1 Dictionary<T1, T2>::getKey(){
   return this->key;
 }
 
 template<typename T1, typename T2>
-T2 Item<T1, T2>::getValue(){
+T2 Dictionary<T1, T2>::getValue(){
   return this->value;
 }
 

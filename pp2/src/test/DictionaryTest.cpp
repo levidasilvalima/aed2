@@ -1,5 +1,5 @@
 # include <iostream>
-# include "../lib/Item.h"
+# include "../lib/Dictionary.h"
 
 using namespace std;
 
@@ -10,7 +10,7 @@ int main() {
 
     bool result = test();
 
-    cout << "Item: ";
+    cout << "Dictionary: ";
     if (result) {
         cout << "GOOD" << endl;
     } else {
@@ -21,16 +21,16 @@ int main() {
 }
 
 bool test() {
-  Item<double, Item<int, char> > item(5.0, Item<int, char>(7, 'c'));
+  Dictionary<double, Dictionary<int, char> > dictionary(5.0, Dictionary<int, char>(7, 'c'));
   int cont;
   // validate getKey
   cont = 0;
-  cont += (item.getKey() == 5.0);
+  cont += (dictionary.getKey() == 5.0);
 
   // validate getValue
 
-  cont += (item.getValue().getKey() == 7);
-  cont += (item.getValue().getValue() == 'c');
+  cont += (dictionary.getValue().getKey() == 7);
+  cont += (dictionary.getValue().getValue() == 'c');
 
   if(cont == 3){
     return true;
