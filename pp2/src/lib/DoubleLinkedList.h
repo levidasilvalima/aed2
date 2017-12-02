@@ -21,6 +21,7 @@ public:
 	void update(int position, T newValue);
 	void remove(int position);
 	void print();
+    bool contain(T value);
 };
 
 template<typename T>
@@ -114,6 +115,19 @@ void DoubleLinkedList<T>::print(){
 		std::cout << ' ' << it->item;
 	}
 	std::cout << std::endl;
+}
+
+template<typename T>
+bool DoubleLinkedList<T>::contain(T value) {
+    Node<T>* it = this->head->next;
+	for(int i = 0; i < this->listSize; i++){
+        if (it->item == value) {
+    		it = it->next;
+            return true;
+        }
+	}
+
+    return false;
 }
 
 # endif
