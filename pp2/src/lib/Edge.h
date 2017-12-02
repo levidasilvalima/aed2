@@ -18,8 +18,15 @@ public:
 		int otherSource = otherEdge.source;
 		int otherDestination = otherEdge.destination;
 		double otherWeight = otherEdge.weight;
-		        
-        return source == otherSource && destination == otherDestination && weight == otherWeight;
+    
+        if (source == otherSource) {
+            if (destination == otherDestination) {
+                if (weight == otherWeight) {
+                    return true;
+                }
+            }
+        }
+        return false;		        
     }  
 };
 
