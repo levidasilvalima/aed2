@@ -12,7 +12,15 @@ public:
     Edge();
     int getSource();
     int getDestination();
-    double getWeight();    
+    double getWeight(); 
+
+    bool operator==(Edge otherEdge) {
+		int otherSource = otherEdge.source;
+		int otherDestination = otherEdge.destination;
+		double otherWeight = otherEdge.weight;
+		        
+        return source == otherSource && destination == otherDestination && weight == otherWeight;
+    }  
 };
 
 Edge::Edge(int vertexSource, int vertexDestination, double edgeWeight) {
