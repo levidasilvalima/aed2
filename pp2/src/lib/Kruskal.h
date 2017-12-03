@@ -10,8 +10,8 @@
 
 class Kruskal {
 private:
-    DoubleLinkedList<Edge> edgeList;
-    QuickSort<Edge> quickSort;
+    DoubleLinkedList<Edge<int> > edgeList;
+    QuickSort<Edge<int> > quickSort;
     double minSpanningTreeWeight;
     Graph graph;
 	Adapter graphAdapter;	
@@ -32,7 +32,7 @@ Kruskal::Kruskal() {
 
 Kruskal::Kruskal(Graph newGraph){
 	this->graph = newGraph;
-	this->edgeList = DoubleLinkedList<Edge>();
+	this->edgeList = DoubleLinkedList<Edge<int> >();
 	this->initialize();
 	
 	int order = newGraph.getOrder();	
@@ -48,7 +48,7 @@ void Kruskal::execute(){
 	this->quickSort.sort(edgeList, 0, edgeList.size() - 1);
 
 	for(int i = 0; i < edgeList.size(); i++) {
-		Edge edge = edgeList.get(i);
+		Edge<int>  edge = edgeList.get(i);
 		int source = edge.getSource();
 		int destination = edge.getDestination();
 		double weight = edge.getWeight();
@@ -57,7 +57,7 @@ void Kruskal::execute(){
 
 	int size = this->edgeList.size();
 	for(int i = 0; i < size; i++){
-		Edge edge = this->edgeList.get(i);
+		Edge<int>  edge = this->edgeList.get(i);
 		int source = edge.getSource();
 		int destination = edge.getDestination();
 		double weight = edge.getWeight();

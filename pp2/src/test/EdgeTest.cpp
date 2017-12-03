@@ -21,7 +21,7 @@ int main() {
 
 bool test() {
     
-    Edge edge = Edge(123, 456, 2.5);
+    Edge<int>  edge = Edge<int>(123, 456, 2.5);
     
     int count = 0;
     

@@ -9,7 +9,7 @@
 class Adapter {
 public:
     Adapter();
-	void getEdgeList(Graph graph, DoubleLinkedList<Edge>& graphEdgeList);
+	void getEdgeList(Graph graph, DoubleLinkedList<Edge<int> >& graphEdgeList);
 	void getGraph(DoubleLinkedList<Neuron> graphNeuronList, Graph& graph);
 };
 
@@ -17,12 +17,12 @@ Adapter::Adapter() {
 
 }
 
-void Adapter::getEdgeList(Graph graph, DoubleLinkedList<Edge>& graphEdgeList){
+void Adapter::getEdgeList(Graph graph, DoubleLinkedList<Edge<int> >& graphEdgeList){
 	int graphOrder = graph.getOrder();
 	for(int u=1; u < graphOrder - 1; u++){
 		for(int v=u+1; v < graphOrder; v++){
 			if(graph.getWeight(u, v) != 0){
-				Edge newEdge = Edge(u, v, graph.getWeight(u, v));
+				Edge<int>  newEdge = Edge<int> (u, v, graph.getWeight(u, v));
 				graphEdgeList.insert(newEdge);
 			}
 		}

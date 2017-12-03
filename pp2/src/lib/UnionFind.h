@@ -1,6 +1,5 @@
 # include "Graph.h"
 # include "Adapter.h"
-# include "Edge.h"
 
 # ifndef UNIONFIND_H
 # define UNIONFIND_H

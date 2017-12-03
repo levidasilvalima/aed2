@@ -17,31 +17,39 @@ int main(){
 
 bool test(){
 	//int a[] = {4, 1, 3, 2, 16, 9, 10, 14, 8, 7};
-	PriorityQueue<int> pq;//(a, 10);
+	PriorityQueue<double> pq;//(a, 10);
 
-	pq.printPQ();
-	pq.push(4);
-	pq.printPQ();
-	pq.push(1);
-	pq.printPQ();
-	pq.push(3);
-	pq.printPQ();
-	pq.push(32);
-	pq.printPQ();
-	pq.push(16);
-	pq.printPQ();
-	pq.push(9);
-	pq.printPQ();
-	pq.push(10);
-	pq.printPQ();
-	pq.push(14);
-	pq.printPQ();
+	pq.push(4.1);
+	pq.push(1.1);
+	pq.push(3.2);
+	pq.push(32.3);
+	pq.push(16.5);
+	pq.push(9.8);
+	pq.push(10.13);
+	pq.push(14.21);
 	
-	while(!pq.empty()){
-		cout << pq.front() << ' ';
-		pq.pop();
+	int count = 0;
+	count += (pq.front() == 1.1);
+	pq.pop();
+	count += (pq.front() == 3.2);
+	pq.pop();
+	count += (pq.front() == 4.1);
+	pq.pop();
+	count += (pq.front() == 9.8);
+	pq.pop();
+	count += (pq.front() == 10.13);
+	pq.pop();
+	count += (pq.front() == 14.21);
+	pq.pop();
+	count += (pq.front() == 16.5);
+	pq.pop();
+	count += (pq.front() == 32.3);
+	pq.pop();
+	
+	int amountTests = 8;
+	if (count == amountTests) {
+		return true;
 	}
-	cout << endl;
 
-	return 1;
+	return false;
 }
