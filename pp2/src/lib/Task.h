@@ -7,7 +7,7 @@
 # ifndef TASK
 # define TASK
 
-class Task() {
+class Task {
 private:
     ReadBrain readsBrain;
     ReadBlocks readsBlocks;
@@ -19,13 +19,13 @@ public:
 };
 
 Task::Task() {
-    this->readsBrain = ReadBrains();
+    this->readsBrain = ReadBrain();
     this->readsBlocks = ReadBlocks();
     this->shortestPathVertexList = DoubleLinkedList<Vertex>();
 }
 
 void Task::execute() {
-    this->readsBrains.readFromDefaultInput();
+    this->readsBrain.readFromDefaultInput();
     this->readsBlocks.readFromDefaultInput();
     
     // http://graphonline.ru/en/?graph=hkjsoujcLmznDfSb

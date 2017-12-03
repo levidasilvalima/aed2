@@ -5,7 +5,7 @@
 # ifndef VERTEX
 # define VERTEX
 
-class Vertex() {
+class Vertex {
 private:
 	int id;
 	DoubleLinkedList<Edge<Vertex> > edgeList;
@@ -14,7 +14,7 @@ public:
     Vertex();
     Vertex(int newBlockId);
     DoubleLinkedList<Vertex> getNeighbors();
-    void insertNeighbor(Vertex vertex);
+    void insertNeighbor(Vertex vertex, double weight);
     int getId();
 
 };
