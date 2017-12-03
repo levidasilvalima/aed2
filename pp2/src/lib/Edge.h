@@ -14,6 +14,24 @@ public:
     int getDestination();
     double getWeight(); 
 
+	bool operator>(Edge otherEdge) {
+		double otherWeight = otherEdge.weight;
+    
+        if (weight > otherWeight) {
+        	return true;
+        }
+        return false;		        
+    }  
+
+	bool operator<(Edge otherEdge) {
+		double otherWeight = otherEdge.weight;
+    
+        if (weight < otherWeight) {
+        	return true;
+        }
+        return false;		        
+    }  
+
     bool operator==(Edge otherEdge) {
 		int otherSource = otherEdge.source;
 		int otherDestination = otherEdge.destination;
