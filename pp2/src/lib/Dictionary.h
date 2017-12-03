@@ -3,13 +3,16 @@
 
 template<typename T1, typename T2>
 class Dictionary{
-public:
+private:
   T1 key;
   T2 value;
+  
+public:
 	Dictionary();
-  Dictionary(T1 newKey, T2 newValue);
-  T1 getKey();
-  T2 getValue();
+	Dictionary(T1 newKey, T2 newValue);
+	T1 getKey();
+	T2 getValue();
+ 
 };
 
 template<typename T1, typename T2>

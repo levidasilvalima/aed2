@@ -9,7 +9,7 @@ public:
     LibraryTemplate();
     // methods
 
-}
+};
 
 LibraryTemplate::LibraryTemplate() {
 

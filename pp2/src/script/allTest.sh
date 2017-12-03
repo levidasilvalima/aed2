@@ -2,7 +2,7 @@ SEARCH_DIRECTORY=$1
 
 for entry in $SEARCH_DIRECTORY*
 do
-    if ! grep -q "GraphBrain" $entry
+    if ! grep -q "ReadBrain" $entry
         then
             ./script/compile-execute.sh $entry run
         if ! [ $? -eq 0 ]; then
