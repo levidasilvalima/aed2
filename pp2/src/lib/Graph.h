@@ -13,6 +13,8 @@ private:
 public:
 	Graph();
 	Graph(int order);
+	int getOrder();
+	int getSize();
 	void insertEdge(int source, int destination, double weight);
     double getWeight(int source, int destination);
     void setWeight(int source, int destination, double weight);
@@ -34,13 +36,25 @@ Graph::Graph(int newOrder){
 	initialize(newOrder + 1);
 }
 
+int Graph::getOrder(){
+	return this->order;
+}
+
+int Graph::getSize(){
+	return this->size;
+}
+
 void Graph::initialize(int newOrder){
-    newOrder++;
 	this->order = newOrder;
     this->adj = new Dictionary<int, double>*[newOrder];
 	
 	for(int i=0; i <= newOrder; i++) {
         this->adj[i] = new Dictionary<int, double>[newOrder];
+    }
+    for(int i = 0; i < newOrder; i++){
+    	for(int j = 0; j < newOrder; j++){
+    		adj[i][j] = Dictionary<int, double>(0, 0.0);
+    	}
     }
 }
 
@@ -85,7 +99,7 @@ void Graph::setWeight(int source, int destination, double weight){
 void Graph::print(){
 	for(int u=1; u < this->order; u++){
 		std::cout << "adj[" << u << "] = ";
-		for(int v=1; v <= this->order; v++){
+		for(int v=1; v < this->order; v++){
             std::cout << this->adj[u][v].getValue() << ' ';
         }
         std::cout << std::endl;
