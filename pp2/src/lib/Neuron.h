@@ -4,13 +4,13 @@
 
 class Neuron {
 private:
-    Edge edge;
+    Edge<int>  edge;
     bool health;
 
 public:
     Neuron();
     Neuron(int source, int destination, double weight, bool neuronIsHealth);
-    Neuron(Edge newEdge, bool neuronIsHealth);
+    Neuron(Edge<int>  newEdge, bool neuronIsHealth);
     int getSource();
     int getDestination();
     double getWeight();
@@ -34,7 +34,7 @@ public:
         double otherNeuronWeight = otherNeuron.getWeight();
         
         bool otherHealth = otherNeuron.isHealth();
-        Edge otherEdge = otherNeuron.edge;
+        Edge<int>  otherEdge = otherNeuron.edge;
         
         if (health == otherHealth) {
             if (edge == otherEdge) {
@@ -49,16 +49,16 @@ public:
 };
 
 Neuron::Neuron() {
-    this->edge = Edge(-1, -1, -1);
+    this->edge = Edge<int> (-1, -1, -1);
     this->health = false;    
 }
 
 Neuron::Neuron(int source, int destination, double weight, bool neuronIsHealth) {
-    this->edge = Edge(source, destination, weight);
+    this->edge = Edge<int> (source, destination, weight);
     this->health = neuronIsHealth;
 }
 
-Neuron::Neuron(Edge newEdge, bool neuronIsHealth) {
+Neuron::Neuron(Edge<int>  newEdge, bool neuronIsHealth) {
     this->edge = newEdge;
     this->health = neuronIsHealth;
 }

@@ -1,4 +1,5 @@
 # include <iostream>
+# include "../lib/Edge.h"
 # include "../lib/Neuron.h"
 
 using namespace std;
@@ -22,7 +23,7 @@ int main() {
 bool test() {
     
     Neuron neuron1 = Neuron(1, 2, 3.5, true);   
-    Edge edge = Edge(3, 4, 55);
+    Edge<int>  edge = Edge<int> (3, 4, 55);
     Neuron neuron2 = Neuron(edge, false); 
     Neuron neuron3 = Neuron(1, 2, 3.5, true);   
     

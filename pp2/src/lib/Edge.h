@@ -1,17 +1,18 @@
 # ifndef EDGE
 # define EDGE
 
+template<typename T>
 class Edge {
 private:
-    int source;
-    int destination;
+    T source;
+    T destination;
     double weight;
 
 public:
-    Edge(int source, int destination, double weight);
+    Edge(T source, T destination, double weight);
     Edge();
-    int getSource();
-    int getDestination();
+    T getSource();
+    T getDestination();
     double getWeight(); 
 
 	bool operator>(Edge otherEdge) {
@@ -33,8 +34,8 @@ public:
     }  
 
     bool operator==(Edge otherEdge) {
-		int otherSource = otherEdge.source;
-		int otherDestination = otherEdge.destination;
+		T otherSource = otherEdge.source;
+		T otherDestination = otherEdge.destination;
 		double otherWeight = otherEdge.weight;
     
         if (source == otherSource) {
@@ -48,27 +49,32 @@ public:
     }  
 };
 
-Edge::Edge(int vertexSource, int vertexDestination, double edgeWeight) {
+template<typename T>
+Edge<T>::Edge(T vertexSource, T vertexDestination, double edgeWeight) {
     this->source = vertexSource;
     this->destination = vertexDestination;
     this->weight = edgeWeight;
 }
 
-Edge::Edge() {
+template<typename T>
+Edge<T>::Edge() {
     this->source = -1;
     this->destination = -1;
     this->weight = -1;
 }
 
-int Edge::getSource() {
+template<typename T>
+T Edge<T>::getSource() {
     return this->source;
 }
 
-int Edge::getDestination() {
+template<typename T>
+T Edge<T>::getDestination() {
     return this->destination;
 }
 
-double Edge::getWeight() {
+template<typename T>
+double Edge<T>::getWeight() {
     return this->weight;
 }
 
