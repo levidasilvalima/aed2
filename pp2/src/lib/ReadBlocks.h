@@ -14,6 +14,7 @@ public:
 	ReadBlocks(int newAmountBlocks);
 	void readFromDefaultInput();	
 	Graph getGraph(int indexBlock);	
+	Block getBlock(int indexBlock);
 };
 
 ReadBlocks::ReadBlocks() {
@@ -71,6 +72,11 @@ Graph ReadBlocks::getGraph(int indexBlock) {
 	adapter.getGraph(block.getNeuronList(), graph);
 	
 	return graph;
+}
+
+Block ReadBlocks::getBlock(int indexBlock) {
+	Block block = this->blockList.get(indexBlock);
+	return block;
 }
 
 # endif
