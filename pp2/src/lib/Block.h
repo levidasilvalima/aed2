@@ -15,6 +15,7 @@ public:
     Block(int newSize, int newOrder);
     int getSize();
     int getOrder();
+    DoubleLinkedList<Neuron> getNeuronList();
     Neuron getNeuron(int index);
     void insertNeuron(Neuron neuron);
     bool isHealth();
@@ -44,6 +45,10 @@ int Block::getOrder() {
 Neuron Block::getNeuron(int index) {
     Neuron neuron = this->neuronList.get(index);
     return neuron;
+}
+
+DoubleLinkedList<Neuron> Block::getNeuronList(){
+	return this->neuronList;
 }
 
 void Block::insertNeuron(Neuron neuron) {
