@@ -1,15 +1,21 @@
+# include"DoubleLinkedList.h"
+
 # ifndef QUICKSORT_H
 # define QUICKSORT_H
-
-# include"DoubleLinkedList.h"
 
 template<typename T>
 class QuickSort {
 public:
-  int partition(DoubleLinkedList<T>& A, int low, int high);
-  void sort(DoubleLinkedList<T>& A, int low, int high);
+	QuickSort();	
+	int partition(DoubleLinkedList<T>& A, int low, int high);
+	void sort(DoubleLinkedList<T>& A, int low, int high);
 
 };
+
+template<typename T>
+QuickSort<T>::QuickSort() {
+
+}
 
 template<typename T>
 int QuickSort<T> ::partition(DoubleLinkedList<T>& A, int low, int high){
