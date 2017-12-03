@@ -20,9 +20,9 @@ bool test(){
 
 	Heap<double> hp(a, 11);
 	
-	hp.printHeap();
 	hp.heapSort();
-	hp.printHeap();
+	
+	// TODO finish test
 	
 	return 1;
 }
