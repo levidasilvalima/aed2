@@ -8,7 +8,7 @@
 class Vertex {
 private:
 	int id;
-	DoubleLinkedList<Edge<Vertex> > edgeList;
+	DoubleLinkedList<Edge<Vertex*> > edgeList;
 
 public:
     Vertex();
@@ -21,12 +21,12 @@ public:
 
 Vertex::Vertex() {
 	this->id = -1;
-	this->edgeList = DoubleLinkedList<Edge<Vertex> >();
+	this->edgeList = DoubleLinkedList<Edge<Vertex*> >();
 }
 
 Vertex::Vertex(int newBlockId) {
 	this->id = newBlockId;
-	this->edgeList = DoubleLinkedList<Edge<Vertex> >();	
+	this->edgeList = DoubleLinkedList<Edge<Vertex*> >();	
 }
 
 // TODO review neighbors
@@ -35,17 +35,19 @@ DoubleLinkedList<Vertex> Vertex::getNeighbors() {
 	int size = this->edgeList.size();
 	
 	for (int i = 0; i < size; i++) {
-		Edge<Vertex>  edge = this->edgeList.get(i);
-		Vertex destination = edge.getDestination();
+		Edge<Vertex*>  edge = this->edgeList.get(i);
+		Vertex* destination = edge.getDestination();
 		
-		neighbors.insert(destination);
+		neighbors.insert(*destination);
 	}
 
 	return neighbors;
 }
 
 void Vertex::insertNeighbor(Vertex vertex, double weight) {
-	Edge<Vertex>  edge = Edge<Vertex> (this->id, vertex.getId(), weight);
+	Vertex* vertexSource = new Vertex(this->id); 
+	Vertex* vertexDestination = new Vertex(vertex.getId());	
+	Edge<Vertex*> edge = Edge<Vertex*> (vertexSource, vertexDestination, weight);
 	this->edgeList.insert(edge);
 }
 
