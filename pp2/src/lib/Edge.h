@@ -58,9 +58,6 @@ Edge<T>::Edge(T vertexSource, T vertexDestination, double edgeWeight) {
 
 template<typename T>
 Edge<T>::Edge() {
-    this->source = -1;
-    this->destination = -1;
-    this->weight = -1;
 }
 
 template<typename T>
