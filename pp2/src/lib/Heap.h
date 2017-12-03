@@ -17,8 +17,8 @@ public:
 	int parent(int);
 	int left(int);
 	int right(int);
-	void maxHeapfy(int);
-	void buildMaxHeapfy();
+	void minHeapfy(int);
+	void buildMinHeapfy();
 	void heapSort();
 };
 
@@ -37,7 +37,7 @@ Heap<T>::Heap(T V[], int tam){
 	}
 	extent = A.size() - 1;
 
-	buildMaxHeapfy();
+	buildMinHeapfy();
 }
 
 template<typename T>
@@ -69,40 +69,40 @@ int Heap<T>::right(int i){
 }
 
 template<typename T>
-void Heap<T>::maxHeapfy(int i){
+void Heap<T>::minHeapfy(int i){
 	int l = left(i);
 	int r = right(i);
-	int maior;
+	int menor;
 	
-	if((l <= extent) && (A[l] > A[i])){
-		maior = l;
+	if((l <= extent) && (A[l] < A[i])){
+		menor = l;
 	} else{
-		maior = i;
+		menor = i;
 	}
 	
-	if((r <= extent) && (A[r] > A[maior])){
-		maior = r;
+	if((r <= extent) && (A[r] < A[menor])){
+		menor = r;
 	}
 	
-	if(maior != i){
+	if(menor != i){
 		T aux = A[i];
-		A[i] = A[maior];
-		A[maior] = aux;
+		A[i] = A[menor];
+		A[menor] = aux;
 		
-		maxHeapfy(maior);
+		minHeapfy(menor);
 	}
 }
 
 template<typename T>
-void Heap<T>::buildMaxHeapfy(){
+void Heap<T>::buildMinHeapfy(){
 	for(int i = (extent / 2); i >= 1; i--){
-		maxHeapfy(i);
+		minHeapfy(i);
 	}
 }
 
 template<typename T>
 void Heap<T>::heapSort(){
-	buildMaxHeapfy();
+	buildMinHeapfy();
 	
 	for(int i = extent; i >= 2; i--){
 		T aux = A[1];
@@ -110,7 +110,7 @@ void Heap<T>::heapSort(){
 		A[i] = aux;
 		
 		extent = extent - 1;
-		maxHeapfy(1);
+		minHeapfy(1);
 	}
 	
 	extent = A.size() - 1;

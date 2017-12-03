@@ -45,12 +45,11 @@ void PriorityQueue<T>::pop(){
 		return;
 	}
 	
-	T max = hp.A[1];
 	hp.A[1] = hp.A[hp.extent];
 	hp.extent = hp.extent - 1;
 	hp.A.pop_back();
 	
-	hp.maxHeapfy(1);
+	hp.minHeapfy(1);
 }
 
 template<typename T>
@@ -61,7 +60,7 @@ void PriorityQueue<T>::increaseKey(int i, T key){
 	
 	hp.A[i] = key;
 	
-	while((i > 1) && (hp.A[hp.parent(i)] < hp.A[i])){
+	while((i > 1) && (hp.A[hp.parent(i)] > hp.A[i])){
 		T aux = hp.A[i];
 		hp.A[i] = hp.A[hp.parent(i)];
 		hp.A[hp.parent(i)] = aux;
