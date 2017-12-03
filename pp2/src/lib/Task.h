@@ -3,6 +3,8 @@
 # include "DoubleLinkedList.h"
 # include "Vertex.h"
 # include "Adapter.h"
+# include "Block.h"
+# include "Kruskal.h"
 
 # ifndef TASK
 # define TASK
@@ -20,12 +22,14 @@ public:
 
 Task::Task() {
     this->readsBrain = ReadBrain();
-    this->readsBlocks = ReadBlocks();
     this->shortestPathVertexList = DoubleLinkedList<Vertex>();
 }
 
 void Task::execute() {
     this->readsBrain.readFromDefaultInput();
+
+  	int amountBlocks = this->readsBrain.getOrder();
+    this->readsBlocks = ReadBlocks(amountBlocks);
     this->readsBlocks.readFromDefaultInput();
     
     // http://graphonline.ru/en/?graph=hkjsoujcLmznDfSb
@@ -44,6 +48,27 @@ void Task::execute() {
 
     vertex = Vertex(18);
     this->shortestPathVertexList.insert(vertex);
+    
+    double totalCost = 0.0;
+    int size = this->shortestPathVertexList.size();
+    for(int i = 0; i < size; i++) {
+    	Vertex vertexBlock = this->shortestPathVertexList.get(i);
+    	int blockId = vertexBlock.getId();
+    	
+    	Block block = this->readsBlocks.getBlock(blockId - 1);
+    	bool isHealth = block.isHealth();
+    	
+    	if (!isHealth) {
+    		Graph graph = this->readsBlocks.getGraph(blockId);
+    		Kruskal kruskal = Kruskal(graph);
+			kruskal.execute();
+			
+			double cost = kruskal.getMinSpanningTreeWeight();
+			totalCost += cost;
+    	}
+    }
+    
+    std::cout << totalCost << std::endl;
 
 }
 
