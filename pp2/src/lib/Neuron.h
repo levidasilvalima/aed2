@@ -30,8 +30,7 @@ public:
         return weight > otherNeuronWeight;
     }
     bool operator==(Neuron otherNeuron) {
-        double weight = edge.getWeight();
-        double otherNeuronWeight = otherNeuron.getWeight();
+       
         
         bool otherHealth = otherNeuron.isHealth();
         Edge<int>  otherEdge = otherNeuron.edge;

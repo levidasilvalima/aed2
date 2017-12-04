@@ -49,7 +49,7 @@ void PriorityQueue<T>::pop(){
 	hp.extent = hp.extent - 1;
 
 	T* aux = NULL;
-	aux = (T*) realloc (hp.A, (hp.extent + 1) * sizeof(T));
+	aux = static_cast<T*>( realloc (hp.A, (hp.extent + 1) * sizeof(T)) );
 	hp.A = aux;
 
 	hp.minHeapfy(1);
@@ -78,7 +78,7 @@ void PriorityQueue<T>::push(T key){
 	hp.extent = hp.extent + 1;
 	
 	T* aux = NULL;
-	aux = (T*) realloc (hp.A, (hp.extent + 1) * sizeof(T));
+	aux = static_cast<T*>( realloc (hp.A, (hp.extent + 1) * sizeof(T)) );
 	hp.A = aux;
 	hp.A[hp.extent] = key;
 	

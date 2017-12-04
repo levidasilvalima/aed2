@@ -39,7 +39,7 @@ Heap<T>::Heap(T V[], int tam){
 	for(int i = 0; i < tam; i++){
 		extent = extent + 1;
 		
-		aux = (T*) realloc (A, (extent + 1) * sizeof(T));
+		aux = static_cast<T*>( realloc (A, (extent + 1) * sizeof(T)) );
 		A = aux;
 		A[extent] = V[i];
 	}
