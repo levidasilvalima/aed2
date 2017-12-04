@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <vector>
 
 using namespace std;
@@ -473,10 +474,16 @@ void Graph::setWeight(int source, int destination, double weight){
 }
 
 void Graph::print(){
+	cout << "         ";
+	for(int u=1; u <= this->order; u++){
+		cout << setw(3) << u << " ";
+	}
+	cout << endl;
+	
 	for(int u=0; u < this->order; u++){
-		std::cout << "adj[" << u << "] = ";
-		for(int v=u; v < this->order; v++){
-            std::cout << this->adj[u][v].getValue() << ' ';
+		std::cout << "adj[" << (u + 1) << "] = ";
+		for(int v=0; v < this->order; v++){
+            std::cout << setw(3) << this->adj[u][v].getValue() << ' ';
         }
         std::cout << std::endl;
 	}
@@ -561,6 +568,7 @@ Block::Block(int newSize, int newOrder) {
     this->size = newSize;
     this->order = newOrder;
     this->neuronList = DoubleLinkedList<Neuron>();
+    this->health = true;
 }
 
 int Block::getSize() {
@@ -1222,11 +1230,11 @@ void ReadBlocks::readFromDefaultInput() {
 		std::cin >> amountDiseaseNeurons;
 		
 		int indexNeuron;
-	    DoubleLinkedList<int> diseaseNeurons = DoubleLinkedList<int>();		
+	    DoubleLinkedList<int> diseaseNeurons = DoubleLinkedList<int>();	
 		for(int j = 0; j < amountDiseaseNeurons; j++) {
 			std::cin >> indexNeuron;		
 			diseaseNeurons.insert(indexNeuron - 1);			
-		}
+		}	
 		
 		Block block = Block(blockSize, blockOrder);
 		int source, destination;
@@ -1234,13 +1242,13 @@ void ReadBlocks::readFromDefaultInput() {
 		for (int j = 0; j < blockSize; j++) {
 			std::cin >> source >> destination >> weight;
 		
-			bool result = diseaseNeurons.contain(source);
-			Neuron neuron = Neuron(source - 1, destination - 1, weight, result);
+			bool result = diseaseNeurons.contain(source - 1);
+			Neuron neuron = Neuron(source - 1, destination - 1, weight, !result);
 			
 			block.insertNeuron(neuron);
 			
-			result = diseaseNeurons.contain(destination);
-			neuron = Neuron(destination - 1, source - 1, weight, result);
+			result = diseaseNeurons.contain(destination - 1);
+			neuron = Neuron(destination - 1, source - 1, weight, !result);
 			
 			block.insertNeuron(neuron);	
 
@@ -1310,18 +1318,21 @@ void Task::execute() {
     	bool isHealth = block.isHealth();
     	
     	if (!isHealth) {
-    		Graph graphBlock = this->readsBlocks.getGraph(vertexId);    	
+    		cout << "vertexId: " << (vertexId + 1) << endl;
+    		Graph graphBlock = this->readsBlocks.getGraph(vertexId);  
+    		graphBlock.print(); 
     		
     		Kruskal kruskal = Kruskal(graphBlock);
 			kruskal.execute();
 			
 			double cost = kruskal.getMinSpanningTreeWeight();
+			cout << "cost: " << cost << endl;
 			totalCost += cost;
     	}
     }
     
     std::cout << totalCost << std::endl;
-
+	cout << endl;
 }
 
 int main(int argc, char **argv) {
