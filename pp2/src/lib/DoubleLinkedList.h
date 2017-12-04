@@ -40,7 +40,7 @@ void DoubleLinkedList<T>::initialize(int newSize, T element){
 	this->tail = new Node<T>();
 	this->head->next = this->tail;
 	this->tail->prev = this->head;
-	for(int i=0; i < newSize; i++){
+	for(int i = 0; i < newSize; i++){
 		insert(element);
 	}
 }
@@ -78,7 +78,7 @@ bool DoubleLinkedList<T>::validatePosistion(int position){
 template<typename T>
 T DoubleLinkedList<T>::get(int position){
 	Node<T>* it = this->head->next;
-	for(int i=0; i < position; i++){
+	for(int i = 0; i < position; i++){
 		it = it->next;
 	}
 	return it->item;
@@ -88,7 +88,7 @@ template<typename T>
 void DoubleLinkedList<T>::update(int position, T newValue){
 	Node<T>* it = this->head->next;
 
-	for(int i=0; i < position; i++){
+	for(int i = 0; i < position; i++){
 		it = it->next;
 	}
 	it->item = newValue;
@@ -97,7 +97,7 @@ void DoubleLinkedList<T>::update(int position, T newValue){
 template<typename T>
 void DoubleLinkedList<T>::remove(int position){
 	Node<T>* it = this->head->next;
-	for(int i=0; i < position; i++){
+	for(int i = 0; i < position; i++){
 		it = it->next;
 	}
 	it->prev->next = it->next;
@@ -110,7 +110,7 @@ template<typename T>
 void DoubleLinkedList<T>::print(){
 	Node<T>* it = this->head->next;
 	if(listSize > 0) std::cout << it->item;
-	for(int i=1; i < this->listSize; i++){
+	for(int i = 1; i < this->listSize; i++){
 		it = it->next;
 		std::cout << ' ' << it->item;
 	}

@@ -9,7 +9,7 @@ using namespace std;
 template<typename T>
 class Heap{
 public:
-	vector<T> A;
+	T* A;
 	int extent;
 	Heap();
 	Heap(T [],int);
@@ -25,24 +25,31 @@ public:
 template<typename T>
 Heap<T>::Heap(){
 	extent = 0;
-	A.push_back(-1);
+	
+	A = new T[1];
 }
 
 template<typename T>
 Heap<T>::Heap(T V[], int tam){
-	A.clear();
-	A.push_back(-1);
+	extent = 0;
+
+	A = new T[1];
+	T* aux = NULL;	
+		
 	for(int i = 0; i < tam; i++){
-		A.push_back(V[i]);
+		extent = extent + 1;
+		
+		aux = static_cast<T*>( realloc (A, (extent + 1) * sizeof(T)) );
+		A = aux;
+		A[extent] = V[i];
 	}
-	extent = A.size() - 1;
 
 	buildMinHeapfy();
 }
 
 template<typename T>
 void Heap<T>::printHeap(){
-	if(extent > 0){
+	if(extent > 0){	
 		for(int i = 1; i <= extent; i++){
 			cout << A[i] << ' ';
 		}
@@ -104,6 +111,8 @@ template<typename T>
 void Heap<T>::heapSort(){
 	buildMinHeapfy();
 	
+	int sizeAuxiliar = extent;
+	
 	for(int i = extent; i >= 2; i--){
 		T aux = A[1];
 		A[1] = A[i];
@@ -113,7 +122,7 @@ void Heap<T>::heapSort(){
 		minHeapfy(1);
 	}
 	
-	extent = A.size() - 1;
+	extent = sizeAuxiliar;
 }
 
 #endif

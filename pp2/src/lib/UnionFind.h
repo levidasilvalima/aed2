@@ -24,7 +24,7 @@ UnionFind::UnionFind() {
 UnionFind::UnionFind(int graphOrder){
 	this->parent = DoubleLinkedList<int>();
 	this->rank = DoubleLinkedList<int>();
-	for(int i = 0; i <= graphOrder; i++){
+	for(int i = 0; i < graphOrder; i++){
 		this->parent.insert(i);
 		this->rank.insert(1);
 	}

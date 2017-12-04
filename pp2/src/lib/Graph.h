@@ -1,4 +1,7 @@
 # include "Dictionary.h"
+# include "BrainEdge.h"
+# include "DoubleLinkedList.h"
+
 # ifndef GRAPH_H
 # define GRAPH_H
 
@@ -19,7 +22,7 @@ public:
     double getWeight(int source, int destination);
     void setWeight(int source, int destination, double weight);
 	void print();
-
+	DoubleLinkedList<BrainEdge> getNeighbors(int id);
 };
 
 Graph::Graph(){
@@ -33,7 +36,7 @@ Graph::Graph(int newOrder){
     this->order = 0;
 	this->adj = NULL;
 
-	initialize(newOrder + 1);
+	initialize(newOrder);
 }
 
 int Graph::getOrder(){
@@ -48,19 +51,19 @@ void Graph::initialize(int newOrder){
 	this->order = newOrder;
     this->adj = new Dictionary<int, double>*[newOrder];
 	
-	for(int i=0; i <= newOrder; i++) {
+	for(int i=0; i < newOrder; i++) {
         this->adj[i] = new Dictionary<int, double>[newOrder];
     }
     for(int i = 0; i < newOrder; i++){
     	for(int j = 0; j < newOrder; j++){
-    		adj[i][j] = Dictionary<int, double>(0, 0.0);
+    		adj[i][j] = Dictionary<int, double>(-1, -1);
     	}
     }
 }
 
 bool Graph::validateVertices(int source, int destination){
-  if(0 <= source && source <= this->order){
-    if(0 <= destination && destination <= this->order){
+  if(0 <= source && source < this->order){
+    if(0 <= destination && destination < this->order){
       return true;
     }
     return false;
@@ -97,13 +100,26 @@ void Graph::setWeight(int source, int destination, double weight){
 }
 
 void Graph::print(){
-	for(int u=1; u < this->order; u++){
+	for(int u=0; u < this->order; u++){
 		std::cout << "adj[" << u << "] = ";
-		for(int v=1; v < this->order; v++){
+		for(int v=u; v < this->order; v++){
             std::cout << this->adj[u][v].getValue() << ' ';
         }
         std::cout << std::endl;
 	}
+}
+
+DoubleLinkedList<BrainEdge> Graph::getNeighbors(int id) {
+	DoubleLinkedList<BrainEdge> neighbors = DoubleLinkedList<BrainEdge>();
+	for(int i = 0; i < this->order; i++) {
+		double weight = this->getWeight(id, i);
+		if (weight > 0) {	
+			BrainEdge brainEdge = BrainEdge(i, weight);	
+			neighbors.insert(brainEdge);
+		}
+	}
+	
+	return neighbors;
 }
 
 # endif

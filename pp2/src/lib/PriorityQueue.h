@@ -1,11 +1,11 @@
-#ifndef PRIORITYQUEUE_H
-#define PRIORITYQUEUE_H
+#ifndef PRIORITYQUEUE_H	
+#define PRIORITYQUEUE_H	
 
-#include"Heap.h"
-#include<iostream>
-#include<vector>
+#include"Heap.h"		
+#include<iostream>		
+#include<vector>		
 
-using namespace std;
+using namespace std;	
 
 template<typename T>
 class PriorityQueue{
@@ -25,7 +25,7 @@ public:
 
 template<typename T>
 PriorityQueue<T>::PriorityQueue(){
-	// Testar o que acontece com o construtor vazio
+
 }
 
 template<typename T>
@@ -47,8 +47,11 @@ void PriorityQueue<T>::pop(){
 	
 	hp.A[1] = hp.A[hp.extent];
 	hp.extent = hp.extent - 1;
-	hp.A.pop_back();
-	
+
+	T* aux = NULL;
+	aux = static_cast<T*>( realloc (hp.A, (hp.extent + 1) * sizeof(T)) );
+	hp.A = aux;
+
 	hp.minHeapfy(1);
 }
 
@@ -71,13 +74,15 @@ void PriorityQueue<T>::increaseKey(int i, T key){
 
 template<typename T>
 void PriorityQueue<T>::push(T key){
-	hp.A.push_back(-INF);
 	
-	hp.extent = hp.A.size() - 1;
-	//cout << "Ultimo: " << hp.A[hp.extent] << endl;
-	//cout << "Extent: " << hp.extent << endl;
+	hp.extent = hp.extent + 1;
+	
+	T* aux = NULL;
+	aux = static_cast<T*>( realloc (hp.A, (hp.extent + 1) * sizeof(T)) );
+	hp.A = aux;
+	hp.A[hp.extent] = key;
+	
 	increaseKey(hp.extent, key);
-	//cout << "Ultimo depois: " << hp.A[hp.extent] << endl;
 }
 
 template<typename T>
@@ -89,4 +94,4 @@ template<typename T>
 void PriorityQueue<T>::printPQ(){
 	hp.printHeap();
 }
-#endif
+#endif	
