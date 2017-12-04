@@ -5,6 +5,7 @@
 # include "Adapter.h"
 # include "Block.h"
 # include "Kruskal.h"
+# include "Dijkstra.h"
 
 # ifndef TASK
 # define TASK
@@ -13,7 +14,7 @@ class Task {
 private:
     ReadBrain readsBrain;
     ReadBlocks readsBlocks;
-    DoubleLinkedList<Vertex> shortestPathVertexList;
+    DoubleLinkedList<int> shortestPathVertexList;
 
 public:
     Task();
@@ -22,7 +23,7 @@ public:
 
 Task::Task() {
     this->readsBrain = ReadBrain();
-    this->shortestPathVertexList = DoubleLinkedList<Vertex>();
+    this->shortestPathVertexList = DoubleLinkedList<int>();
 }
 
 void Task::execute() {
@@ -33,37 +34,32 @@ void Task::execute() {
     this->readsBlocks.readFromDefaultInput();
     
     // http://graphonline.ru/en/?graph=hkjsoujcLmznDfSb
-
-    Vertex vertex = Vertex(1);
-    this->shortestPathVertexList.insert(vertex);
-    
-    vertex = Vertex(3);
-    this->shortestPathVertexList.insert(vertex);
-
-    vertex = Vertex(8);
-    this->shortestPathVertexList.insert(vertex);
-
-    vertex = Vertex(11);
-    this->shortestPathVertexList.insert(vertex);
-
-    vertex = Vertex(18);
-    this->shortestPathVertexList.insert(vertex);
+	
+	Graph graph = this->readsBrain.getGraph();
+	int source = this->readsBrain.getInput();
+	int destination = this->readsBrain.getOutput();
+	
+	Dijkstra dijkstra = Dijkstra(graph, source, destination);
+	dijkstra.execute();
+	this->shortestPathVertexList = dijkstra.getPath();
     
     double totalCost = 0.0;
+    
     int size = this->shortestPathVertexList.size();
+    
     for(int i = 0; i < size; i++) {
-    	Vertex vertexBlock = this->shortestPathVertexList.get(i);
-    	int blockId = vertexBlock.getId();
+    	int vertexId = this->shortestPathVertexList.get(i);
     	
-    	Block block = this->readsBlocks.getBlock(blockId - 1);
+    	Block block = this->readsBlocks.getBlock(vertexId);
     	bool isHealth = block.isHealth();
     	
     	if (!isHealth) {
-    		Graph graph = this->readsBlocks.getGraph(blockId);
-    		Kruskal kruskal = Kruskal(graph);
+    		Graph graphBlock = this->readsBlocks.getGraph(vertexId);
+    		Kruskal kruskal = Kruskal(graphBlock);
 			kruskal.execute();
 			
 			double cost = kruskal.getMinSpanningTreeWeight();
+			std::cout << cost << std::endl;
 			totalCost += cost;
     	}
     }
@@ -73,3 +69,4 @@ void Task::execute() {
 }
 
 # endif
+
