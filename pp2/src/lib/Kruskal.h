@@ -52,7 +52,6 @@ void Kruskal::execute(){
 		int source = edge.getSource();
 		int destination = edge.getDestination();
 		double weight = edge.getWeight();
-		
 	}
 
 	int size = this->edgeList.size();

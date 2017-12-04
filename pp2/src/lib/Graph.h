@@ -102,7 +102,7 @@ void Graph::setWeight(int source, int destination, double weight){
 void Graph::print(){
 	for(int u=0; u < this->order; u++){
 		std::cout << "adj[" << u << "] = ";
-		for(int v=u+1; v < this->order; v++){
+		for(int v=u; v < this->order; v++){
             std::cout << this->adj[u][v].getValue() << ' ';
         }
         std::cout << std::endl;

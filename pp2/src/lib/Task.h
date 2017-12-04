@@ -54,12 +54,12 @@ void Task::execute() {
     	bool isHealth = block.isHealth();
     	
     	if (!isHealth) {
-    		Graph graphBlock = this->readsBlocks.getGraph(vertexId);
+    		Graph graphBlock = this->readsBlocks.getGraph(vertexId);    	
+    		
     		Kruskal kruskal = Kruskal(graphBlock);
 			kruskal.execute();
 			
 			double cost = kruskal.getMinSpanningTreeWeight();
-			std::cout << cost << std::endl;
 			totalCost += cost;
     	}
     }
