@@ -1300,6 +1300,7 @@ void Task::execute() {
     // http://graphonline.ru/en/?graph=hkjsoujcLmznDfSb
 	
 	Graph graph = this->readsBrain.getGraph();
+//	graph.print();
 	int source = this->readsBrain.getInput();
 	int destination = this->readsBrain.getOutput();
 	
@@ -1317,16 +1318,16 @@ void Task::execute() {
     	Block block = this->readsBlocks.getBlock(vertexId);
     	bool isHealth = block.isHealth();
     	
+    		cout << "vertexId: " << (vertexId) << endl;
     	if (!isHealth) {
-    		cout << "vertexId: " << (vertexId + 1) << endl;
     		Graph graphBlock = this->readsBlocks.getGraph(vertexId);  
-    		graphBlock.print(); 
+//    		graphBlock.print(); 
     		
     		Kruskal kruskal = Kruskal(graphBlock);
 			kruskal.execute();
 			
 			double cost = kruskal.getMinSpanningTreeWeight();
-			cout << "cost: " << cost << endl;
+//			cout << "cost: " << cost << endl;
 			totalCost += cost;
     	}
     }
