@@ -121,9 +121,6 @@ public:
         return weight > otherNeuronWeight;
     }
     bool operator==(Neuron otherNeuron) {
-        double weight = edge.getWeight();
-        double otherNeuronWeight = otherNeuron.getWeight();
-        
         bool otherHealth = otherNeuron.isHealth();
         Edge<int>  otherEdge = otherNeuron.edge;
         
@@ -1095,13 +1092,6 @@ void Kruskal::initialize(){
 
 void Kruskal::execute(){
 	this->quickSort.sort(edgeList, 0, edgeList.size() - 1);
-
-	for(int i = 0; i < edgeList.size(); i++) {
-		Edge<int>  edge = edgeList.get(i);
-		int source = edge.getSource();
-		int destination = edge.getDestination();
-		double weight = edge.getWeight();
-	}
 
 	int size = this->edgeList.size();
 	for(int i = 0; i < size; i++){
