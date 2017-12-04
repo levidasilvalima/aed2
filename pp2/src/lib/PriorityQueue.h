@@ -47,8 +47,11 @@ void PriorityQueue<T>::pop(){
 	
 	hp.A[1] = hp.A[hp.extent];
 	hp.extent = hp.extent - 1;
-	hp.A.pop_back();
-	
+
+	T* aux = NULL;
+	aux = (T*) realloc (hp.A, (hp.extent + 1) * sizeof(T));
+	hp.A = aux;
+
 	hp.minHeapfy(1);
 }
 
@@ -71,9 +74,14 @@ void PriorityQueue<T>::increaseKey(int i, T key){
 
 template<typename T>
 void PriorityQueue<T>::push(T key){
-	hp.A.push_back(key);
 	
-	hp.extent = hp.A.size() - 1;
+	hp.extent = hp.extent + 1;
+	
+	T* aux = NULL;
+	aux = (T*) realloc (hp.A, (hp.extent + 1) * sizeof(T));
+	hp.A = aux;
+	hp.A[hp.extent] = key;
+	
 	increaseKey(hp.extent, key);
 }
 
