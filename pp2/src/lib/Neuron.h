@@ -49,7 +49,7 @@ public:
 };
 
 Neuron::Neuron() {
-    this->edge = Edge<int> (-1, -1, -1);
+	
     this->health = false;    
 }
 
