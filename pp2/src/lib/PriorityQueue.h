@@ -71,7 +71,7 @@ void PriorityQueue<T>::increaseKey(int i, T key){
 
 template<typename T>
 void PriorityQueue<T>::push(T key){
-	hp.A.push_back(-INF);
+	hp.A.push_back(key);
 	
 	hp.extent = hp.A.size() - 1;
 	//cout << "Ultimo: " << hp.A[hp.extent] << endl;

@@ -25,13 +25,15 @@ public:
 template<typename T>
 Heap<T>::Heap(){
 	extent = 0;
-	A.push_back(-1);
+	T temp;
+	A.push_back(temp);
 }
 
 template<typename T>
 Heap<T>::Heap(T V[], int tam){
 	A.clear();
-	A.push_back(-1);
+	T temp;
+	A.push_back(temp);
 	for(int i = 0; i < tam; i++){
 		A.push_back(V[i]);
 	}
