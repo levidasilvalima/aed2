@@ -493,7 +493,7 @@ DoubleLinkedList<BrainEdge> Graph::getNeighbors(int id) {
 	DoubleLinkedList<BrainEdge> neighbors = DoubleLinkedList<BrainEdge>();
 	for(int i = 0; i < this->order; i++) {
 		double weight = this->getWeight(id, i);
-		if (weight > 0) {	
+		if (weight >= 0) {	
 			BrainEdge brainEdge = BrainEdge(i, weight);	
 			neighbors.insert(brainEdge);
 		}
@@ -517,7 +517,7 @@ void Adapter::getEdgeList(Graph graph, DoubleLinkedList<Edge<int> >& graphEdgeLi
 	int graphOrder = graph.getOrder();
 	for(int u=0; u < graphOrder - 1; u++){
 		for(int v=u+1; v < graphOrder; v++){
-			if(graph.getWeight(u, v) > 0){
+			if(graph.getWeight(u, v) >= 0){
 				Edge<int>  newEdge = Edge<int> (u, v, graph.getWeight(u, v));
 				graphEdgeList.insert(newEdge);
 			}
@@ -935,7 +935,7 @@ DoubleLinkedList<Vertex> Vertex::getNeighbors(Graph graph) {
 	int order = graph.getOrder();
 	for(int i = 0; i < order; i++) {
 		double weight = graph.getWeight(this->id, i);
-		if (weight > 0) {
+		if (weight >= 0) {
 			Vertex vertexNeighbor1 = Vertex(i);
 			neighbors.insert(vertexNeighbor1);
 			
