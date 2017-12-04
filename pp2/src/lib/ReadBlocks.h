@@ -27,7 +27,7 @@ ReadBlocks::ReadBlocks(int newAmountBlocks) {
 
 void ReadBlocks::readFromDefaultInput() {
 
-	for (int i = 1; i <= this->amountBlocks; i++) {		
+	for (int i = 0; i < this->amountBlocks; i++) {		
 		int blockOrder, blockSize;
 		std::cin >> blockOrder >> blockSize;
 
@@ -36,24 +36,24 @@ void ReadBlocks::readFromDefaultInput() {
 		
 		int indexNeuron;
 	    DoubleLinkedList<int> diseaseNeurons = DoubleLinkedList<int>();		
-		for(int j = 1; j <= amountDiseaseNeurons; j++) {
+		for(int j = 0; j < amountDiseaseNeurons; j++) {
 			std::cin >> indexNeuron;		
-			diseaseNeurons.insert(indexNeuron);			
+			diseaseNeurons.insert(indexNeuron - 1);			
 		}
 		
 		Block block = Block(blockSize, blockOrder);
 		int source, destination;
 		double weight;
-		for (int j = 1; j <= blockSize; j++) {
+		for (int j = 0; j < blockSize; j++) {
 			std::cin >> source >> destination >> weight;
 		
 			bool result = diseaseNeurons.contain(source);
-			Neuron neuron = Neuron(source, destination, weight, result);
+			Neuron neuron = Neuron(source - 1, destination - 1, weight, result);
 			
 			block.insertNeuron(neuron);
 			
 			result = diseaseNeurons.contain(destination);
-			neuron = Neuron(destination, source, weight, result);
+			neuron = Neuron(destination - 1, source - 1, weight, result);
 			
 			block.insertNeuron(neuron);	
 

@@ -1,4 +1,5 @@
 # include "Graph.h"
+# include "Vertex.h"
 # ifndef READ_BRAIN
 # define READ_BRAIN
 
@@ -20,6 +21,7 @@ public:
     void readFromDefaultInput();
     int getInput();
    	int getOutput();
+   	Graph getGraph();
 };
 
 void ReadBrain::insertEdge(int source, int destination, double weight) {    
@@ -59,9 +61,11 @@ void ReadBrain::readFromDefaultInput() {
     double weight;
     for (int i = 0; i < this->size; i++) {
         std::cin >> source >> destination >> weight;
-        this->insertEdge(source, destination, weight);
+        this->insertEdge(source - 1, destination - 1, weight);
     }
 	std::cin >> this->input >> this->output;
+	this->input--;
+	this->output--;
 }   
 
 int ReadBrain::getInput() {
@@ -70,6 +74,10 @@ int ReadBrain::getInput() {
 
 int ReadBrain::getOutput() {
 	return this->output;
+}
+
+Graph ReadBrain::getGraph() {
+	return this->graph;
 }
 
 # endif
