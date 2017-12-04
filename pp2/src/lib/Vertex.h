@@ -1,6 +1,7 @@
 # include "Dictionary.h"
 # include "DoubleLinkedList.h"
 # include "Edge.h"
+# include "Graph.h"
 
 # ifndef VERTEX
 # define VERTEX
@@ -13,9 +14,10 @@ private:
 public:
     Vertex();
     Vertex(int newBlockId);
-    DoubleLinkedList<Vertex> getNeighbors();
+    DoubleLinkedList<Vertex> getNeighbors(Graph graph);
     void insertNeighbor(Vertex vertex, double weight);
     int getId();
+    Edge<Vertex*> getEdge(int neighborId);
 
 };
 
@@ -30,21 +32,28 @@ Vertex::Vertex(int newBlockId) {
 }
 
 // TODO review neighbors
-DoubleLinkedList<Vertex> Vertex::getNeighbors() {
+DoubleLinkedList<Vertex> Vertex::getNeighbors(Graph graph) {
 	DoubleLinkedList<Vertex> neighbors = DoubleLinkedList<Vertex>();
-	int size = this->edgeList.size();
+	this->edgeList = DoubleLinkedList<Edge<Vertex*> >();
 	
-	for (int i = 0; i < size; i++) {
-		Edge<Vertex*>  edge = this->edgeList.get(i);
-		Vertex* destination = edge.getDestination();
-		
-		neighbors.insert(*destination);
+	int order = graph.getOrder();
+	for(int i = 0; i < order; i++) {
+		double weight = graph.getWeight(this->id, i);
+		if (weight > 0) {
+			Vertex vertexNeighbor1 = Vertex(i);
+			neighbors.insert(vertexNeighbor1);
+			
+			Vertex* vertexNeighbor = new Vertex(i);
+			Edge<Vertex*> edge = Edge<Vertex*>(this, vertexNeighbor, weight);
+			
+			this->edgeList.insert(edge);
+		}
 	}
 
 	return neighbors;
 }
 
-void Vertex::insertNeighbor(Vertex vertex, double weight) {
+void Vertex::insertNeighbor(Vertex vertex, double weight) {	
 	Vertex* vertexSource = new Vertex(this->id); 
 	Vertex* vertexDestination = new Vertex(vertex.getId());	
 	Edge<Vertex*> edge = Edge<Vertex*> (vertexSource, vertexDestination, weight);
@@ -53,6 +62,11 @@ void Vertex::insertNeighbor(Vertex vertex, double weight) {
 
 int Vertex::getId() {
 	return this->id;
+}
+
+Edge<Vertex*> Vertex::getEdge(int neighborId) {
+	Edge<Vertex*> edge = this->edgeList.get(neighborId);
+	return edge;
 }
 
 # endif
