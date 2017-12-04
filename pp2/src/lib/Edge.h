@@ -15,8 +15,8 @@ public:
     T getDestination();
     double getWeight(); 
 
-	bool operator>(Edge otherEdge) {
-		double otherWeight = otherEdge.weight;
+	bool operator>(Edge<T> otherEdge) {
+		double otherWeight = otherEdge.getWeight();
     
         if (weight > otherWeight) {
         	return true;
@@ -24,8 +24,8 @@ public:
         return false;		        
     }  
 
-	bool operator<(Edge otherEdge) {
-		double otherWeight = otherEdge.weight;
+	bool operator<(Edge<T> otherEdge) {
+		double otherWeight = otherEdge.getWeight();
     
         if (weight < otherWeight) {
         	return true;
@@ -33,10 +33,10 @@ public:
         return false;		        
     }  
 
-    bool operator==(Edge otherEdge) {
-		T otherSource = otherEdge.source;
-		T otherDestination = otherEdge.destination;
-		double otherWeight = otherEdge.weight;
+    bool operator==(Edge<T> otherEdge) {
+		T otherSource = otherEdge.getSource();
+		T otherDestination = otherEdge.getDestination();
+		double otherWeight = otherEdge.getWeight();
     
         if (source == otherSource) {
             if (destination == otherDestination) {
