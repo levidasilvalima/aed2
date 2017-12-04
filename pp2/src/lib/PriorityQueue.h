@@ -1,11 +1,11 @@
-#ifndef PRIORITYQUEUE_H
-#define PRIORITYQUEUE_H
+#ifndef PRIORITYQUEUE_H	
+#define PRIORITYQUEUE_H	
 
-#include"Heap.h"
-#include<iostream>
-#include<vector>
+#include"Heap.h"		
+#include<iostream>		
+#include<vector>		
 
-using namespace std;
+using namespace std;	
 
 template<typename T>
 class PriorityQueue{
@@ -25,7 +25,7 @@ public:
 
 template<typename T>
 PriorityQueue<T>::PriorityQueue(){
-	// Testar o que acontece com o construtor vazio
+
 }
 
 template<typename T>
@@ -74,10 +74,7 @@ void PriorityQueue<T>::push(T key){
 	hp.A.push_back(key);
 	
 	hp.extent = hp.A.size() - 1;
-	//cout << "Ultimo: " << hp.A[hp.extent] << endl;
-	//cout << "Extent: " << hp.extent << endl;
 	increaseKey(hp.extent, key);
-	//cout << "Ultimo depois: " << hp.A[hp.extent] << endl;
 }
 
 template<typename T>
@@ -89,4 +86,4 @@ template<typename T>
 void PriorityQueue<T>::printPQ(){
 	hp.printHeap();
 }
-#endif
+#endif	
