@@ -602,7 +602,7 @@ bool Block::isHealth() {
 template<typename T>
 class Heap{
 public:
-	vector<T> A;
+	T* A;
 	int extent;
 	Heap();
 	Heap(T [],int);
@@ -618,26 +618,31 @@ public:
 template<typename T>
 Heap<T>::Heap(){
 	extent = 0;
-	T temp;
-	A.push_back(temp);
+	
+	A = new T[1];
 }
 
 template<typename T>
 Heap<T>::Heap(T V[], int tam){
-	A.clear();
-	T temp;
-	A.push_back(temp);
+	extent = 0;
+
+	A = new T[1];
+	T* aux = NULL;	
+		
 	for(int i = 0; i < tam; i++){
-		A.push_back(V[i]);
+		extent = extent + 1;
+		
+		aux = static_cast<T*>( realloc (A, (extent + 1) * sizeof(T)) );
+		A = aux;
+		A[extent] = V[i];
 	}
-	extent = A.size() - 1;
 
 	buildMinHeapfy();
 }
 
 template<typename T>
 void Heap<T>::printHeap(){
-	if(extent > 0){
+	if(extent > 0){	
 		for(int i = 1; i <= extent; i++){
 			cout << A[i] << ' ';
 		}
@@ -699,6 +704,8 @@ template<typename T>
 void Heap<T>::heapSort(){
 	buildMinHeapfy();
 	
+	int sizeAuxiliar = extent;
+	
 	for(int i = extent; i >= 2; i--){
 		T aux = A[1];
 		A[1] = A[i];
@@ -708,7 +715,7 @@ void Heap<T>::heapSort(){
 		minHeapfy(1);
 	}
 	
-	extent = A.size() - 1;
+	extent = sizeAuxiliar;
 }
 
 template<typename T>
@@ -751,8 +758,11 @@ void PriorityQueue<T>::pop(){
 	
 	hp.A[1] = hp.A[hp.extent];
 	hp.extent = hp.extent - 1;
-	hp.A.pop_back();
-	
+
+	T* aux = NULL;
+	aux = static_cast<T*>( realloc (hp.A, (hp.extent + 1) * sizeof(T)) );
+	hp.A = aux;
+
 	hp.minHeapfy(1);
 }
 
@@ -775,9 +785,14 @@ void PriorityQueue<T>::increaseKey(int i, T key){
 
 template<typename T>
 void PriorityQueue<T>::push(T key){
-	hp.A.push_back(key);
 	
-	hp.extent = hp.A.size() - 1;
+	hp.extent = hp.extent + 1;
+	
+	T* aux = NULL;
+	aux = static_cast<T*>( realloc (hp.A, (hp.extent + 1) * sizeof(T)) );
+	hp.A = aux;
+	hp.A[hp.extent] = key;
+	
 	increaseKey(hp.extent, key);
 }
 
@@ -1318,7 +1333,7 @@ void Task::execute() {
     	Block block = this->readsBlocks.getBlock(vertexId);
     	bool isHealth = block.isHealth();
     	
-    		cout << "vertexId: " << (vertexId) << endl;
+//    		cout << "vertexId: " << (vertexId) << endl;
     	if (!isHealth) {
     		Graph graphBlock = this->readsBlocks.getGraph(vertexId);  
 //    		graphBlock.print(); 
@@ -1333,7 +1348,7 @@ void Task::execute() {
     }
     
     std::cout << totalCost << std::endl;
-	cout << endl;
+//	cout << endl;
 }
 
 int main(int argc, char **argv) {
